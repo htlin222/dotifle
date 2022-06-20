@@ -1,0 +1,4 @@
+matches:
+-
+    trigger: ":happy"
+    replace: "Hi there!"
