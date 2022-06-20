@@ -4,8 +4,8 @@
 " Part.1 ---在一開始載入的東西{{{
 " }}}
 " Part.2 ---set各種基本配置 {{{
-" 開啟語法高亮
-syntax on
+set nocompatible
+filetype off
 set number "顯示行號"
 set clipboard=unnamed "將vim的剪貼版跟系統綁定"
 set foldenable "可以折起程式碼，預設是manual，可以透過set foldmethod?來查看
@@ -42,12 +42,12 @@ set completeopt-=preview " For No Previews
 set concealcursor=n
 set shortmess=at
 set cmdheight=3
+filetype plugin indent on
+" 開啟語法高亮
+syntax on
 " }}}
 " Part.3 ---map各種鍵位的改變 {{{
 " 改Leader改成空白鍵，預設是\
-let mapleader=','
-
-nmap <leader>wq :wq<CR>
 " 關於CursorLine的設定
 highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
@@ -61,6 +61,8 @@ nnoremap <up> <C-U>zz
 nnoremap <down> <C-D>zz
 nnoremap <left> :N<CR><Esc>zz
 nnoremap <right> :n<CR><Esc>zz
+nmap H ^
+nmap L $
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -68,49 +70,56 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
 inoremap aa <Esc>
+inoremap ;; <Esc>
 inoremap <CR> <C-o>o
-inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
+" Leader related
+let mapleader=','
+nmap <leader>wq :wq<CR>
 " 在正常模式下，用以下鍵位來調整目前的視窗大小
 nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -1<CR>
 nnoremap <leader>ll :vertical resize +1<CR>
-" leader i: 先切換成嘸蝦米再進入insert mode 
-nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>i
-
-nmap H ^
-nmap L $
-" map <leader>. :Vexplore<cr> "有NREDTree後就沒那麼實用了"
-" 開啟init.vim 的快捷鍵
-map <leader>, :e ~/.config/nvim/init.vim<CR>
-" 重新讀取當前的init.vim 
-map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設定了，🎉祝你有個愉快的一天"<CR>
-" 如果還是怪怪的，建議全關掉後重啟，說不定可以解決你的問題
-" vimwiki map {{{
-nmap <leader>vs <Plug>VimwikiVSplitLink
-nmap \ :VimwikiTabnewLink<CR>
-" }}}
 " 在下面一行貼上
 nnoremap <C-p> :pu<CR>
-" 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
-nnoremap <leader>p :w<CR>:Vista<CR>
-" Toggle: 
-" 在寫程式時好用的Tagbar，安裝時請看下面Plugin部分的說明
-nmap <leader>'' :TagbarToggle<CR>
-" Undotree, 可以看見編輯的紀錄，好用
-nmap <leader>u :UndotreeToggle<CR>
 " TODO:弄懂一下這行在幹麻
 tnoremap <Esc> <C-\><C-n>
 " Vim 視窗分割 
 map <leader>; <C-W>s
 map <leader>` <C-W>v
+
+" map <leader>. :Vexplore<cr> "有NREDTree後就沒那麼實用了"
+" 開啟_vimrc的快捷鍵 {{{
+"
+" }}}
+"
+" 重新載入開啟init.vim 的快捷鍵
+map <leader>, :e ~/.config/nvim/init.vim<CR>
+" 重新讀取當前的init.vim 
+map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設定了，🎉祝你有個愉快的一天"<CR>
+" 如果還是怪怪的，建議全關掉後重啟，說不定可以解決你的問題
+"
+" 以下是要裝額外的外掛才能用的一些指令================================
+" 不同情況的輸入法切換 
+nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>i
+inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
+" vimwiki map {{{
+nmap <leader>vs <Plug>VimwikiVSplitLink
+nmap \ :VimwikiTabnewLink<CR>
+" }}}
+" 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
+nnoremap <leader>p :w<CR>:Vista<CR>
+" 在寫程式時好用的Tagbar，安裝時請看下面Plugin部分的說明
+nmap <leader>'' :TagbarToggle<CR>
+" Undotree, 可以看見編輯的紀錄，好用
+nmap <leader>u :UndotreeToggle<CR>
 " }}}
 " Part.4 ---外部檔案 {{{
 " 我的各種縮寫，目前沒什麼東西，主要是用espanso來代替
 iab greet Hellow 🦎
 source ~/.config/nvim/abbr.vimrc
 " }}}
-" Part.5 ---各種Plug in {{{
+" Part.5 ---Plugin {{{
 " 先安裝 https://github.com/junegunn/vim-plug
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
@@ -165,6 +174,8 @@ Plug 'michal-h21/vimwiki-sync'
 call plug#end()
 " }}}
 " Part.6 ---Plugin各別設定 {{{
+" 主題選用monokai
+colorscheme monokai
 " ---NERDTree {{{
 "-----從這開始是 nerdtree配置 ------------
 nnoremap <leader>t :NERDTreeToggle %<CR> " 將快速鍵設定為leader t
@@ -253,8 +264,6 @@ let g:airline_symbols.linenr = ''
 " }}}
 " }}}
 " Part.7 ---其他設定 {{{
-" 主題選用monokai
-colorscheme monokai
 " path  {{{
 " 當出現provider問題時，就來這邊加一下
 let g:coc_node_path = '/usr/local/bin/node'
