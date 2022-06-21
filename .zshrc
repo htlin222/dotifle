@@ -30,7 +30,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-
+# A lot of info TL;DR {{{
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -91,11 +91,12 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # source $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# }}}
 
 source $ZSH/oh-my-zsh.sh
+source ~/.dotfile/zshrc_sync
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -123,8 +124,15 @@ alias vim='nvim'
 alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias pip3="pip"
 alias reload="source ~/.zshrc"
-alias espansoconfig='vim /Users/mac/Library/Application\ Support/espanso/match/base.yml'
 alias note='vim ~/vimwiki/index.md'
+
+
 export PATH=$PATH:/Users/mac/opt/anaconda3/lib/python3.9:PATH
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
+
+function lazygit() {
+    git add .
+    git commit -a -m "$1"
+    git push
+}
