@@ -65,6 +65,7 @@ nnoremap <left> :N<CR><Esc>zz
 nnoremap <right> :n<CR><Esc>zz
 nmap H ^
 nmap L $
+nnoremap <CR> i<CR><Esc>
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -72,7 +73,8 @@ inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
 inoremap aa <Esc>
-inoremap ;; <Esc>
+inoremap <C-e> <C-o>a
+" 為了讓換行時不要退出輸入法，所以改enter改成這樣
 inoremap <CR> <C-o>o
 " Leader related
 let mapleader=' '
@@ -86,6 +88,10 @@ nnoremap <leader>ll :vertical resize +1<CR>
 nnoremap <C-p> :pu<CR>
 " TODO:弄懂一下這行在幹麻
 tnoremap <Esc> <C-\><C-n>
+tnoremap <C-j> <C-\><C-n><C-w><C-j>
+tnoremap <C-k> <C-\><C-n><C-w><C-k>
+tnoremap <C-l> <C-\><C-n><C-w><C-l>
+tnoremap <C-h> <C-\><C-n><C-w><C-h>
 " Vim 視窗分割
 map <leader>; <C-W>s
 map <leader>` <C-W>v
@@ -292,16 +298,18 @@ autocmd FileType vimwiki setlocal foldenable
 autocmd FileType vim setlocal foldmethod=marker
 " }}}
 let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打開的"
-let g:indentLine_concealcursor = "nv"
+let g:indentLine_concealcursor = "n"
 let g:indentLine_setConceal = 0
+let g:markdown_syntax_conceal=0
+let g:vim_markdown_conceal_code_blocks = 0
 let g:taboo_tab_format=" %N:%f %m"
 let g:taboo_modified_tab_flag="[✏️ ]"
 let g:taboo_close_tab_label="[❌]"
-" set conceallevel=2
+set conceallevel=2
+set concealcursor=n
 " markdown folding setting {{{
 "對於markdown fold 的設定：來自[masukomi/vim-markdown-folding: Fold markdown documents by section.](https://github.com/masukomi/vim-markdown-folding)
-let g:markdown_folding = 1
-set nocompatible
+let g:markdown_folding = 9
 if has("autocmd")
     filetype plugin indent on
 endif
@@ -383,6 +391,7 @@ autocmd BufWritePre * call StripTrailingWhitespace()
 " file formats
 autocmd Filetype gitcommit setlocal spell textwidth=72
 autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
+" autocmd Filetype vimwiki set ft=markdown syntax=markdown
 autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
 
 " specify syntax highlighting for specific files
