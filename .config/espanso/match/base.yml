@@ -134,7 +134,7 @@ matches:
           format: "%y-%m-%d"
 
   - trigger: "gitc"
-    replace: "git commit \"$|$ {{mydate}}\""
+    replace: "git commit -m \"$|$ on {{mydate}}\""
     vars:
       - name: mydate
         type: date
