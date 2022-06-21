@@ -4,6 +4,7 @@ matches:
   -
     trigger: ":espanso"
     replace: "Hi there!"
+      # Emoji {{{
   -
     trigger: "yee"
     replace: "🦎"
@@ -20,12 +21,6 @@ matches:
     trigger: ";thumb;"
     replace: "👍"
   -
-    trigger: "newtri"
-    replace: "\";$|$;\",\"{{clipboard}}\""
-    vars:
-      - name: "clipboard"
-        type: "clipboard"
-  -
     trigger: ";fever;"
     replace: "🌡️ 發燒 "
   -
@@ -40,12 +35,6 @@ matches:
   -
     trigger: ";kissalot;"
     replace: "🥰😍🤩😘😗😚"
-  -
-    trigger: ";;"
-    replace: ""
-  -
-    trigger: ";;"
-    replace: ""
   -
     trigger: ";flu;"
     replace: "🤒感染"
@@ -115,6 +104,7 @@ matches:
   -
     trigger: ";ddx;"
     replace: "🔍鑑別診斷🔎"
+      # }}}
   -
     trigger: ";flow;"
     replace: |
@@ -126,7 +116,12 @@ matches:
             C[right];
             A-->B;A-->C;
             ```
-
+  -
+    trigger: "newtri"
+    replace: "\";$|$;\",\"{{clipboard}}\""
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
   - trigger: "ccard"
     replace: "#🧠 *Q&A* $|$ →→ "
   # Dates
@@ -138,6 +133,13 @@ matches:
         params:
           format: "%y-%m-%d"
 
+  - trigger: "gitc"
+    replace: "git commit \"$|$ {{mydate}}\""
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%y-%m-%d %H:%M"
   # Shell commands
   - trigger: ":shell"
     replace: "{{output}}"

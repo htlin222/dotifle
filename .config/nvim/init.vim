@@ -1,5 +1,5 @@
 :echo "你好！🦎"
-" 22-06-19
+" 22-06-21
 " (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
 " Part.1 ---在一開始載入的東西{{{
 " }}}
@@ -84,7 +84,7 @@ nnoremap <leader>ll :vertical resize +1<CR>
 nnoremap <C-p> :pu<CR>
 " TODO:弄懂一下這行在幹麻
 tnoremap <Esc> <C-\><C-n>
-" Vim 視窗分割 
+" Vim 視窗分割
 map <leader>; <C-W>s
 map <leader>` <C-W>v
 
@@ -95,12 +95,12 @@ map <leader>` <C-W>v
 "
 " 重新載入開啟init.vim 的快捷鍵
 map <leader>, :e ~/.config/nvim/init.vim<CR>
-" 重新讀取當前的init.vim 
+" 重新讀取當前的init.vim
 map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設定了，🎉祝你有個愉快的一天"<CR>
 " 如果還是怪怪的，建議全關掉後重啟，說不定可以解決你的問題
 "
 " 以下是要裝額外的外掛才能用的一些指令================================
-" 不同情況的輸入法切換 
+" 不同情況的輸入法切換
 nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>i
 inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
 " vimwiki map {{{
@@ -155,6 +155,7 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 Plug 'yianwillis/vimcdoc' "vimcdoc提供了vim的中文文件
 Plug 'liuchengxu/vista.vim' "用:vista 來開啟，右邊顯示toc
 Plug 'tpope/vim-unimpaired'
+Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'aserebryakov/vim-todo-lists'
 Plug 'crusoexia/vim-monokai' "monokai顏色主題
@@ -277,7 +278,7 @@ let g:vimwiki_folding = 'custom'
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
 autocmd FileType vimwiki setlocal foldenable
-autocmd FileType vim setlocal foldmethod=marker  
+autocmd FileType vim setlocal foldmethod=marker
 " }}}
 let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打開的"
 let g:indentLine_concealcursor = "nv"
