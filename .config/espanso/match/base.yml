@@ -1,37 +1,148 @@
-# espanso match file
 
-# For a complete introduction, visit the official docs at: https://espanso.org/docs/
-
-# You can use this file to define the base matches (aka snippets)
-# that will be available in every application when using espanso.
-
-# Matches are substitution rules: when you type the "trigger" string
-# it gets replaced by the "replace" string.
+# /Users/mac/.config/nvim/espansoConfig/vim.yml
 matches:
-  # Simple text replacement
-  - trigger: ":espanso"
+  -
+    trigger: ":espanso"
     replace: "Hi there!"
+  -
+    trigger: "yee"
+    replace: "🦎"
+  -
+    trigger: ";x;"
+    replace: "❌"
+  -
+    trigger: ";o;"
+    replace: "⭕"
+  -
+    trigger: ";check;"
+    replace: "☑️"
+  -
+    trigger: ";thumb;"
+    replace: "👍"
+  -
+    trigger: "newtri"
+    replace: "\";$|$;\",\"{{clipboard}}\""
+    vars:
+      - name: "clipboard"
+        type: "clipboard"
+  -
+    trigger: ";fever;"
+    replace: "🌡️ 發燒 "
+  -
+    trigger: ";mx;"
+    replace: "💊治療 "
+  -
+    trigger: ";pathophy;"
+    replace: "🔄致病機轉"
+  -
+    trigger: ";sum;"
+    replace: "📖結論"
+  -
+    trigger: ";kissalot;"
+    replace: "🥰😍🤩😘😗😚"
+  -
+    trigger: ";;"
+    replace: ""
+  -
+    trigger: ";;"
+    replace: ""
+  -
+    trigger: ";flu;"
+    replace: "🤒感染"
+  -
+    trigger: ";pe;"
+    replace: "🏋️ 理學檢查 "
+  -
+    trigger: ";lab;"
+    replace: "🧪Lab 檢查 "
+  -
+    trigger: ";se;"
+    replace: "👻副作用"
+  -
+    trigger: ";nb;"
+    replace: "🚨"
+  -
+    trigger: ";rx;"
+    replace: "💉藥"
+  -
+    trigger: ";bac;"
+    replace: "🦠"
+  -
+    trigger: ";pulm;"
+    replace: "🫁"
+  -
+    trigger: ";neuro;"
+    replace: "🧠"
+  -
+    trigger: ";+;"
+    replace: "➕"
+  -
+    trigger: ";skull;"
+    replace: "💀"
+  -
+    trigger: ";rad;"
+    replace: "☢️"
+  -
+    trigger: ";!!;"
+    replace: "‼️"
+  -
+    trigger: ";approach;"
+    replace: "🔰"
+  -
+    trigger: ";warn;"
+    replace: "⚠️"
+  -
+    trigger: ";hazard;"
+    replace: "☣️"
+  -
+    trigger: ";cvrisk;"
+    replace: "🫀 心血管風險 "
+  -
+    trigger: ";gg;"
+    replace: "😵"
+  -
+    trigger: ";hema;"
+    replace: "🩸"
+  -
+    trigger: ";img;"
+    replace: "🌠 影像檢查  "
+  -
+    trigger: ";bolt;"
+    replace: "⚡"
+  -
+    trigger: ";n;"
+    replace: "<br>"
+  -
+    trigger: ";ddx;"
+    replace: "🔍鑑別診斷🔎"
+  -
+    trigger: ";flow;"
+    replace: |
+            ```mermaid
+            `%%{init: {'securityLevel': 'loose','theme':'base','themeVariables': { 'primaryColor': '#fff'}}}%%
+            graph TD;
+            A[$|$];
+            B[left];
+            C[right];
+            A-->B;A-->C;
+            ```
 
-  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
-
-  # But matches can also be dynamic:
-
-  # Print the current date
+  - trigger: "ccard"
+    replace: "#🧠 *Q&A* $|$ →→ "
+  # Dates
   - trigger: ":date"
     replace: "{{mydate}}"
     vars:
       - name: mydate
         type: date
         params:
-          format: "%m/%d/%Y"
+          format: "%y-%m-%d"
 
-  # Print the output of a shell command
+  # Shell commands
   - trigger: ":shell"
     replace: "{{output}}"
     vars:
       - name: output
         type: shell
         params:
-          cmd: "echo 'Hello from your shell'"
-
-  # And much more! For more information, visit the docs: https://espanso.org/docs/
+          cmd: "echo Hello from your shell"

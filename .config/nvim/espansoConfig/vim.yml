@@ -7,7 +7,7 @@ matches:
     trigger: "yee"
     replace: "🦎"
   -
-    trigger: ":x:"
+    trigger: ";x;"
     replace: "❌"
   -
     trigger: ";o;"
