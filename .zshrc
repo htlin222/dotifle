@@ -25,12 +25,7 @@ unset __conda_setup
 # }}}
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-# Powerlevel {{{
 ZSH_THEME="powerlevel10k/powerlevel10k"
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
-# }}}
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # A lot of info TL;DR {{{
