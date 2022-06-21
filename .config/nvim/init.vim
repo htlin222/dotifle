@@ -1,6 +1,6 @@
 :echo "你好！🦎"
-" 22-06-21
-" (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
+" 22-06-21 PM (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
+"
 " Part.1 ---在一開始載入的東西{{{
 " }}}
 " Part.2 ---set各種基本配置 {{{
@@ -73,7 +73,7 @@ inoremap aa <Esc>
 inoremap ;; <Esc>
 inoremap <CR> <C-o>o
 " Leader related
-let mapleader=','
+let mapleader=' '
 nmap <leader>wq :wq<CR>
 " 在正常模式下，用以下鍵位來調整目前的視窗大小
 nnoremap <leader>jj <C-w>+
@@ -263,6 +263,15 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 " }}}
+" gitgutter settings: {{{
+let g:gitgutter_sign_added = '㊉'
+" let g:gitgutter_sign_modified = 'yy'
+let g:gitgutter_sign_removed = '㊀'
+" let g:gitgutter_sign_removed_first_line = '^^'
+" let g:gitgutter_sign_removed_above_and_below = '{'
+" let g:gitgutter_sign_modified_removed = 'ww'
+" }}}
+
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
