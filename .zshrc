@@ -1,9 +1,16 @@
-# If you come from bash you might have to change your $PATH.
-# on Macbook Pro
-export PATH=$PATH:/Users/mac/opt/anaconda3/lib/python3.9:PATH
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+# Anaconda3 setting {{{
 export PATH="Users/mac/opt/anaconda3/bin:$PATH"
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$PATH:/Users/mac/opt/anaconda3/lib/python3.9:PATH
 # !! Contents within this block are managed by 'conda init' !!
+# <<< conda initialize <<<
 __conda_setup="$('/Users/mac/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
@@ -15,21 +22,16 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-
+# }}}
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
+# Powerlevel {{{
+ZSH_THEME="powerlevel10k/powerlevel10k"
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs history time)
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+# }}}
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=30'
-
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # A lot of info TL;DR {{{
 # Set list of themes to pick from when loading at random
@@ -95,29 +97,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # }}}
 
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
+# Alias {{{
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vim='nvim'
@@ -125,14 +105,16 @@ alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias pip3="pip"
 alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
-
-
-export PATH=$PATH:/Users/mac/opt/anaconda3/lib/python3.9:PATH
+# }}}
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
-
+# My persional function {{{
 function lazygit() {
     git add .
     git commit -a -m "$1"
     git push
 }
+# }}}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
