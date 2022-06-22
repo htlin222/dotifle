@@ -22,6 +22,7 @@ set showcmd
 set incsearch
 set smartcase
 set ignorecase
+set incsearch
 set hidden
 " Turn word wrap off
 " set nowrap
@@ -71,6 +72,7 @@ nnoremap i zzi
 nnoremap a zza
 nnoremap o zzo
 nnoremap O zzO
+nnoremap <C-k> :set hls!<CR>
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -288,7 +290,7 @@ let g:gitgutter_sign_removed = '㊀'
 " vimwiki {{{
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_folding = 'custom'
+let g:vimwiki_folding = 'expr'
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown filetype=markdown
 autocmd FileType vimwiki setlocal foldenable

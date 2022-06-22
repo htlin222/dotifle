@@ -1,15 +1,10 @@
-# .dotfile
-MarkdownPreview
-[[type]]
-[[type]]
+# this is my dotfile
+## Setup:
+clone this repo by
+```
+git clone https://github.com/htlin222/dotifle.git
+```
+## Pre-requirement
 
-'''sh
-[[mkdir]] test
-'''
-## test
-### autofold or not :
-type
-
-why
 
 
