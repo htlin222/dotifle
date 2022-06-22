@@ -41,7 +41,8 @@ set encoding=UTF-8
 set showmatch
 set completefunc=emoji#complete
 set completeopt-=preview " For No Previews
-set concealcursor=n
+set concealcursor-=n
+set conceallevel=2
 set shortmess=at
 set cmdheight=3
 filetype plugin indent on
@@ -66,6 +67,10 @@ nnoremap <right> :n<CR><Esc>zz
 nmap H ^
 nmap L $
 nnoremap <CR> i<CR><Esc>
+nnoremap i zzi
+nnoremap a zza
+nnoremap o zzo
+nnoremap O zzO
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -409,15 +414,12 @@ let g:Tlist_Ctags_Cmd="/usr/local/ctags"
 "}}}
 let g:markdown_syntax_conceal=0
 let g:vim_markdown_conceal_code_blocks = 0
-set conceallevel=2
-set concealcursor=n
 " markdown folding setting {{{
 "對於markdown fold 的設定：來自[masukomi/vim-markdown-folding: Fold markdown documents by section.](https://github.com/masukomi/vim-markdown-folding)
 let g:markdown_folding = 9
 if has("autocmd")
     filetype plugin indent on
 endif
-"let g:vim_markdown_conceal = 0
 " }}}
 "  停用:setting for switch input method {{{
 " let g:XkbSwitchEnabled = 1
@@ -544,6 +546,7 @@ endfunction
 " Close all folds when opening a new buffer
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
+
 
 " Rainbow parenthesis always on!
 if exists(':RainbowParenthesesToggle')

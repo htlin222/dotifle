@@ -26,7 +26,7 @@ install yarn build
 : CocInstall coc-python
 ```
 # 接下來要完成的事：
-* 如果讓捲我用動效果比較好 
+* [如果讓捲我用動效果比較好](如果讓捲我用動效果比較好.md) 
 * espanso的設定檔轉成abbr.vim 這樣
 * [學習function](學習function)
 * [學習autocmd](學習autocmd.md)

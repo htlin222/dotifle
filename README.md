@@ -1,7 +1,15 @@
 # .dotfile
-:MarkdownPreview
-type
+MarkdownPreview
+[[type]]
+[[type]]
+
+'''sh
+[[mkdir]] test
+'''
+## test
+### autofold or not :
 type
 
-type
+why
+
 
