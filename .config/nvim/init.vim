@@ -279,7 +279,26 @@ let g:gitgutter_sign_removed = '㊀'
 " let g:gitgutter_sign_removed_above_and_below = '{'
 " let g:gitgutter_sign_modified_removed = 'ww'
 " }}}
-
+" vimwiki {{{
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_folding = 'custom'
+let g:vimwiki_markdown_link_ext = 1
+autocmd FileType vimwiki setlocal syntax=markdown filetype=markdown
+autocmd FileType vimwiki setlocal foldenable
+autocmd FileType vim setlocal foldmethod=marker
+" }}}
+" taboo {{{
+let g:taboo_tab_format=" %N:%f %m"
+let g:taboo_modified_tab_flag="[✏️ ]"
+let g:taboo_close_tab_label="[❌]"
+" }}}
+" indent {{{
+let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打開的"
+let g:indentLine_concealcursor = "n"
+let g:indentLine_setConceal = 0
+" }}}
+"
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
@@ -288,23 +307,8 @@ let g:coc_node_path = '/usr/local/bin/node'
 let g:python3_host_prog ='/usr/local/Cellar/python@3.9/3.9.13_1/bin/python3'
 let g:Tlist_Ctags_Cmd="/usr/local/ctags"
 "}}}
-" vimwiki {{{
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_folding = 'custom'
-let g:vimwiki_markdown_link_ext = 1
-autocmd FileType vimwiki setlocal syntax=markdown
-autocmd FileType vimwiki setlocal foldenable
-autocmd FileType vim setlocal foldmethod=marker
-" }}}
-let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打開的"
-let g:indentLine_concealcursor = "n"
-let g:indentLine_setConceal = 0
 let g:markdown_syntax_conceal=0
 let g:vim_markdown_conceal_code_blocks = 0
-let g:taboo_tab_format=" %N:%f %m"
-let g:taboo_modified_tab_flag="[✏️ ]"
-let g:taboo_close_tab_label="[❌]"
 set conceallevel=2
 set concealcursor=n
 " markdown folding setting {{{
@@ -439,7 +443,7 @@ endfunction
 
 " Close all folds when opening a new buffer
 autocmd BufRead * setlocal foldmethod=marker
-autocmd BufRead * normal zM
+autocmd BufRead * normal zR
 
 " Rainbow parenthesis always on!
 if exists(':RainbowParenthesesToggle')

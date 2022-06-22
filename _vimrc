@@ -13,6 +13,7 @@ set backspace=indent,eol,start  " Make bs work across line breaks etc
 set autoindent      " Enable basic auto indentation
 set copyindent      " Preserve manual indentation
 set number
+set wrap
 set shiftround
 set showmatch
 set ignorecase
@@ -44,7 +45,7 @@ set guioptions -=m
 set guioptions -=T
 set guioptions -=L
 set guioptions -=r
-set lines=35 columns=100
+set lines=25 columns=40
 " netrw file browser settings
 " let g:netrw_banner=0		" Hide the directory banner
 let g:netrw_liststyle=3		" 0=thin; 1=long; 2=wide; 3=tree
