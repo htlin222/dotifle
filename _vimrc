@@ -45,13 +45,14 @@ set guioptions -=m
 set guioptions -=T
 set guioptions -=L
 set guioptions -=r
-set lines=25 columns=40
+set lines=25 columns=60
 " netrw file browser settings
 " let g:netrw_banner=0		" Hide the directory banner
 let g:netrw_liststyle=3		" 0=thin; 1=long; 2=wide; 3=tree
 " }}}
 filetype plugin indent on
 syntax on
+source ~/abbr.vim
 " colorscheme koehler
 " 2. navigation map {{{
 " Map Ctrl+[hjkl] to navigate windows vim style
@@ -153,7 +154,7 @@ autocmd Bufread,BufNewFile *.spv set filetype=php
 autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+" autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 " Highlight words to avoid in tech writing
 " http://css-tricks.com/words-avoid-educational-writing/
