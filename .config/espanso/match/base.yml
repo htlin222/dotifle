@@ -117,7 +117,7 @@ matches:
             A-->B;A-->C;
             ```
   -
-    trigger: "zz"
+    trigger: "lazygit"
     replace: "lazygit \"$|$\""
   -
     trigger: "newtri"

@@ -1,1 +1,5 @@
-{"dependencies":{}}
+{
+  "dependencies": {
+    "coc-snippets": ">=3.0.14"
+  }
+}

@@ -1,8 +1,5 @@
 :echo "你好！🦎"
-" 22-06-21 PM (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
-" test {{{
-" break a line here
-"}}}
+" (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
 " Part.1 ---在一開始載入的東西{{{
 " }}}
 " Part.2 ---set各種基本配置 {{{
@@ -65,6 +62,9 @@ nnoremap <up> <C-U>zz
 nnoremap <down> <C-D>zz
 nnoremap <left> :N<CR><Esc>zz
 nnoremap <right> :n<CR><Esc>zz
+" j and k navigate visual lines rather than logical ones
+nnoremap j gj
+nnoremap k gk
 nmap H ^
 nmap L $
 nnoremap <CR> i<CR><Esc>
@@ -116,11 +116,11 @@ map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設
 "
 " 以下是要裝額外的外掛才能用的一些指令================================
 " 不同情況的輸入法切換
-nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>i
+nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>zzi
 inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
 " vimwiki map {{{
 nmap <leader>vs <Plug>VimwikiVSplitLink
-nmap \ :VimwikiTabnewLink<CR>
+nmap ,t :VimwikiTabnewLink<CR>
 " }}}
 " 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
 nnoremap <leader>p :w<CR>:Vista<CR>
@@ -133,6 +133,7 @@ nmap <leader>u :UndotreeToggle<CR>
 " 我的各種縮寫，目前沒什麼東西，主要是用espanso來代替
 iab greet Hellow 🦎
 source ~/.config/nvim/abbr.vimrc
+source ~/.config/nvim/mysnippets.vimrc
 " }}}
 " Part.5 ---Plugin {{{
 " 先安裝 https://github.com/junegunn/vim-plug
@@ -178,6 +179,7 @@ Plug 'vim-airline/vim-airline' "下面那段airline
 Plug 'vim-airline/vim-airline-themes' " airline 的顏色主題
 Plug 'jiangmiao/auto-pairs'
 Plug 'michal-h21/vimwiki-sync'
+Plug 'ThePrimeagen/vim-be-good'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " ---Deactivated Plug {{{
@@ -195,7 +197,7 @@ call plug#end()
 colorscheme monokai
 " ---NERDTree {{{
 "-----從這開始是 nerdtree配置 ------------
-nnoremap <leader>t :NERDTreeToggle %<CR> " 將快速鍵設定為leader t
+nnoremap <leader>t :NERDTreeToggle %<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 " -- 設定nerdtree的視窗大小
