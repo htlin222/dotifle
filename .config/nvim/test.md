@@ -1,1 +1,0 @@
-[terminal](terminal.md)

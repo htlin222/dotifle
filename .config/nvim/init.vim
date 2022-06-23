@@ -118,12 +118,14 @@ map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設
 " 不同情況的輸入法切換
 nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>zzi
 inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
+" nnoremap <leader>\ :Abc<CR>:echo "正常模式🥰"<CR>
+
 " vimwiki map {{{
 nmap <leader>vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
 " }}}
 " 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
-nnoremap <leader>p :w<CR>:Vista<CR>
+nnoremap <leader>p :w<CR>:Vista!!<CR>
 " 在寫程式時好用的Tagbar，安裝時請看下面Plugin部分的說明
 nmap <leader>'' :TagbarToggle<CR>
 " Undotree, 可以看見編輯的紀錄，好用
@@ -143,6 +145,7 @@ Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vimwiki/vimwiki' " vimwiki ，個人在vim裡的wiki
+Plug 'michal-h21/vimwiki-sync'
 Plug 'junegunn/fzf' "Fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
@@ -299,6 +302,8 @@ let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown filetype=markdown
 autocmd FileType vimwiki setlocal foldenable
 autocmd FileType vim setlocal foldmethod=marker
+let g:vimwiki_sync_branch = "main"
+let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
 " }}}
 " taboo {{{
 let g:taboo_tab_format=" %N:%f %m"
@@ -414,9 +419,9 @@ let g:deoplete#enable_at_startup = 1
 let g:UltiSnipsExpandTrigger='<CR>'
 " shortcut to go to next position
 let g:UltiSnipsJumpForwardTrigger='<C-j>'
-
 " shortcut to go to previous position
 let g:UltiSnipsJumpBackwardTrigger='<C-k>'
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
@@ -590,5 +595,7 @@ endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
 " Part.9 ---User Command! {{{
-" 不會寫…command! -n=0 -bar reload :source ~/.config/nvim/init.vim
+command! Vimr :source ~/.config/nvim/init.vim
+command! Vimrc :e ~/.config/nvim/init.vim
+command! Abc :!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi
 " }}}
