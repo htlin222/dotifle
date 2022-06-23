@@ -75,14 +75,13 @@ nnoremap O zzO
 nnoremap <C-k> :set hls!<CR>
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
+" inoremap <C-j> <Down>
+" are mapped to UltiSnips
+" inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
-inoremap aa <Esc>
+" inoremap <CR> <C-j>
 inoremap <C-e> <C-o>a
-" 為了讓換行時不要退出輸入法，所以改enter改成這樣
-inoremap <CR> <C-o>o
 " Leader related
 let mapleader=' '
 nmap <leader>wq :wq<CR>
@@ -93,6 +92,7 @@ nnoremap <leader>hh :vertical resize -1<CR>
 nnoremap <leader>ll :vertical resize +1<CR>
 " 在下面一行貼上
 nnoremap <C-p> :pu<CR>
+nnoremap <leader><space> :nohl<CR>
 " TODO:弄懂一下這行在幹麻
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-j> <C-\><C-n><C-w><C-j>
@@ -180,6 +180,8 @@ Plug 'vim-airline/vim-airline-themes' " airline 的顏色主題
 Plug 'jiangmiao/auto-pairs'
 Plug 'michal-h21/vimwiki-sync'
 Plug 'ThePrimeagen/vim-be-good'
+Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " ---Deactivated Plug {{{
@@ -195,7 +197,7 @@ call plug#end()
 " Part.6 ---Plugin各別設定 {{{
 " 主題選用monokai
 colorscheme monokai
-" ---NERDTree {{{
+" NERDTree {{{
 "-----從這開始是 nerdtree配置 ------------
 nnoremap <leader>t :NERDTreeToggle %<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
@@ -408,12 +410,19 @@ let g:indentLine_setConceal = 0
 " " By default the theme is define according to the preferences of the system
 " let g:mkdp_theme = 'dark'
 " " }}}
+let g:deoplete#enable_at_startup = 1
+let g:UltiSnipsExpandTrigger='<CR>'
+" shortcut to go to next position
+let g:UltiSnipsJumpForwardTrigger='<C-j>'
+
+" shortcut to go to previous position
+let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
 " 當出現provider問題時，就來這邊加一下
 let g:coc_node_path = '/usr/local/bin/node'
-let g:python3_host_prog ='/usr/local/Cellar/python@3.9/3.9.13_1/bin/python3'
+let g:python3_host_prog ='/Users/mac/opt/anaconda3/bin/python3'
 let g:Tlist_Ctags_Cmd="/usr/local/ctags"
 "}}}
 let g:markdown_syntax_conceal=0
@@ -443,7 +452,6 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 " --- Some Notes ---
 " :PlugClean :PlugInstall :UpdateRemotePlugins
-"
 " :CocInstall coc-python
 " :CocInstall coc-clangd
 " :CocInstall coc-snippets

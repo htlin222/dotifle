@@ -25,6 +25,12 @@ sudo npm install -g yarn yarn
 install yarn build
 : CocInstall coc-python
 ```
+this is a book
+
+this is 
+
+
+
 
 # 接下來要完成的事：
 * [如果讓捲我用動效果比較好](如果讓捲我用動效果比較好.md) 
