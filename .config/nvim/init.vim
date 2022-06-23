@@ -143,7 +143,7 @@ Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vimwiki/vimwiki' " vimwiki ，個人在vim裡的wiki
-Plug 'junegunn/fzf' "Fuzzy search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
 " [undotree/undotree.vim at master · mbbill/undotree](https://github.com/mbbill/undotree/blob/master/plugin/undotree.vim#L15)
@@ -413,7 +413,9 @@ let g:indentLine_setConceal = 0
 " " By default the theme is define according to the preferences of the system
 " let g:mkdp_theme = 'dark'
 " " }}}
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+let g:ackprg = 'ag --nogroup --nocolor --column'
+set rtp+=/usr/local/opt/fzf
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
