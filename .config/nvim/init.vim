@@ -75,13 +75,14 @@ nnoremap O zzO
 nnoremap <C-k> :set hls!<CR>
 " 在insert mode 中，ctrl hjkl做為上下左右
 inoremap <C-h> <Left>
-" inoremap <C-j> <Down>
-" are mapped to UltiSnips
-" inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
-" inoremap <CR> <C-j>
+inoremap aa <Esc>
 inoremap <C-e> <C-o>a
+" 為了讓換行時不要退出輸入法，所以改enter改成這樣
+inoremap <CR> <C-o>o
 " Leader related
 let mapleader=' '
 nmap <leader>wq :wq<CR>
@@ -92,7 +93,6 @@ nnoremap <leader>hh :vertical resize -1<CR>
 nnoremap <leader>ll :vertical resize +1<CR>
 " 在下面一行貼上
 nnoremap <C-p> :pu<CR>
-nnoremap <leader><space> :nohl<CR>
 " TODO:弄懂一下這行在幹麻
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-j> <C-\><C-n><C-w><C-j>
@@ -118,14 +118,12 @@ map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設
 " 不同情況的輸入法切換
 nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>zzi
 inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
-" nnoremap <leader>\ :Abc<CR>:echo "正常模式🥰"<CR>
-
 " vimwiki map {{{
 nmap <leader>vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
 " }}}
 " 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
-nnoremap <leader>p :w<CR>:Vista!!<CR>
+nnoremap <leader>p :w<CR>:Vista<CR>
 " 在寫程式時好用的Tagbar，安裝時請看下面Plugin部分的說明
 nmap <leader>'' :TagbarToggle<CR>
 " Undotree, 可以看見編輯的紀錄，好用
@@ -145,7 +143,6 @@ Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'vimwiki/vimwiki' " vimwiki ，個人在vim裡的wiki
-Plug 'michal-h21/vimwiki-sync'
 Plug 'junegunn/fzf' "Fuzzy search
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
@@ -200,7 +197,7 @@ call plug#end()
 " Part.6 ---Plugin各別設定 {{{
 " 主題選用monokai
 colorscheme monokai
-" NERDTree {{{
+" ---NERDTree {{{
 "-----從這開始是 nerdtree配置 ------------
 nnoremap <leader>t :NERDTreeToggle %<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
@@ -299,9 +296,10 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_markdown_link_ext = 1
-autocmd FileType vimwiki setlocal syntax=markdown filetype=markdown
+autocmd FileType vimwiki setlocal syntax=markdown
 autocmd FileType vimwiki setlocal foldenable
 autocmd FileType vim setlocal foldmethod=marker
+let g:vimwiki_global_ext=0
 let g:vimwiki_sync_branch = "main"
 let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
 " }}}
@@ -415,13 +413,7 @@ let g:indentLine_setConceal = 0
 " " By default the theme is define according to the preferences of the system
 " let g:mkdp_theme = 'dark'
 " " }}}
-let g:deoplete#enable_at_startup = 1
-let g:UltiSnipsExpandTrigger='<CR>'
-" shortcut to go to next position
-let g:UltiSnipsJumpForwardTrigger='<C-j>'
-" shortcut to go to previous position
-let g:UltiSnipsJumpBackwardTrigger='<C-k>'
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" let g:deoplete#enable_at_startup = 1
 " }}}
 " Part.7 ---其他設定 {{{
 " path  {{{
@@ -439,12 +431,6 @@ if has("autocmd")
     filetype plugin indent on
 endif
 " }}}
-"  停用:setting for switch input method {{{
-" let g:XkbSwitchEnabled = 1
-" let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
-" let g:XkbSwitchNLayout = 'us'
-" autocmd BufEnter * let g:XkbSwitchILayout = 'us'
-" }}}
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -457,13 +443,14 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 " --- Some Notes ---
 " :PlugClean :PlugInstall :UpdateRemotePlugins
+"
 " :CocInstall coc-python
 " :CocInstall coc-clangd
 " :CocInstall coc-snippets
 " :CocCommand snippets.edit... FOR EACH FILE TYPE
 " Use <Tab> and <S-Tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 " Todo syntax {{{
 
@@ -595,7 +582,5 @@ endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
 " Part.9 ---User Command! {{{
-command! Vimr :source ~/.config/nvim/init.vim
-command! Vimrc :e ~/.config/nvim/init.vim
-command! Abc :!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi
+" 不會寫…command! -n=0 -bar reload :source ~/.config/nvim/init.vim
 " }}}
