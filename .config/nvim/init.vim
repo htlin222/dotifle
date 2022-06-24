@@ -1,17 +1,18 @@
-:echo "你好！🦎"
-" (小技巧：可以在normal mode下用za來打開或關閉各個Fold)"
-" Part.1 ---在一開始載入的東西{{{
+:echo "Hellow ！🦎"
+" (hint: hit za to open or close the fold)"
+" Part.1 ---stuff that must be load at first{{{
 " }}}
-" Part.2 ---set各種基本配置 {{{
+" Part.2 ---set the environment {{{
+" the follwoing line must be in the first line
 set nocompatible
 filetype off
-set number "顯示行號"
-set clipboard=unnamed "將vim的剪貼版跟系統綁定"
-set foldenable "可以折起程式碼，預設是manual，可以透過set foldmethod?來查看
-set relativenumber "相對行號
+set number "show the line number"
+set clipboard=unnamed "link the system clipboard to the vim clipboard "
+set foldenable "default: manual, see the current setting by  :set foldmethod?
+set relativenumber
 set autoindent
 set tabstop=4
-set nobackup
+set nobackup " backup file is immediately deleted upon successfully writing the original file.
 set nowritebackup
 set noswapfile
 set history=100
@@ -21,13 +22,12 @@ set smartcase
 set ignorecase
 set incsearch
 set hidden
-" Turn word wrap off
 " set nowrap
 set timeout timeoutlen=1000 ttimeoutlen=100
 set shiftwidth=4
 set smarttab
 set softtabstop=4
-set mouse=a "支援滑鼠
+set mouse=a " support mouse
 set splitbelow
 set splitright
 set cursorcolumn
@@ -39,99 +39,104 @@ set encoding=UTF-8
 set showmatch
 set completefunc=emoji#complete
 set completeopt-=preview " For No Previews
-set concealcursor-=n
+set concealcursor-=n " show concealed curse when cursor move to the line
 set conceallevel=2
 set shortmess=at
 set cmdheight=3
 filetype plugin indent on
-" 開啟語法高亮
 syntax on
 " }}}
-" Part.3 ---map各種鍵位的改變 {{{
-" 改Leader改成空白鍵，預設是\
-" 關於CursorLine的設定
+" Part.3 ---map the key {{{
 highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-" 在不同視窗中的navigation
+" navigation
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
-" 鍵盤上的「上下左右」方向鍵不用白不用，我拿來將上下改為翻頁且置中、左右改為前後分頁切換且置中
+" switch up/down to half page up and down; left/right to next tab
 nnoremap <up> <C-U>zz
 nnoremap <down> <C-D>zz
 nnoremap <left> :N<CR><Esc>zz
 nnoremap <right> :n<CR><Esc>zz
+nnoremap <C-u> <C-u>zz
+nnoremap <C-d> <C-d>zz
 " j and k navigate visual lines rather than logical ones
 nnoremap j gj
 nnoremap k gk
+" H remap to the begin of the line, L to the end of line
 nmap H ^
 nmap L $
+" remap enter in normal mode to break a line
 nnoremap <CR> i<CR><Esc>
+" center the page before entering the insert mode
 nnoremap i zzi
 nnoremap a zza
+nnoremap A zzA
 nnoremap o zzo
 nnoremap O zzO
+" clear the search result by ctrl+K
 nnoremap <C-k> :set hls!<CR>
-" 在insert mode 中，ctrl hjkl做為上下左右
+" insert mode ctr
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
-inoremap aa <Esc>
 inoremap <C-e> <C-o>a
-" 為了讓換行時不要退出輸入法，所以改enter改成這樣
-inoremap <CR> <C-o>o
 " Leader related
+" map leader to spacebar
 let mapleader=' '
 nmap <leader>wq :wq<CR>
-" 在正常模式下，用以下鍵位來調整目前的視窗大小
+" to adjust the window size
 nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
-nnoremap <leader>hh :vertical resize -1<CR>
-nnoremap <leader>ll :vertical resize +1<CR>
-" 在下面一行貼上
+nnoremap <leader>hh :vertical resize -10<CR>
+nnoremap <leader>ll :vertical resize +10<CR>
+" paste under the current line
 nnoremap <C-p> :pu<CR>
-" TODO:弄懂一下這行在幹麻
+" leave terminal mode
 tnoremap <Esc> <C-\><C-n>
+" navigate to other windows by ctrl hjkl
 tnoremap <C-j> <C-\><C-n><C-w><C-j>
 tnoremap <C-k> <C-\><C-n><C-w><C-k>
 tnoremap <C-l> <C-\><C-n><C-w><C-l>
 tnoremap <C-h> <C-\><C-n><C-w><C-h>
-" Vim 視窗分割
+" Vim split windows
+" split vertical
 map <leader>; <C-W>s
+" split horizontal
 map <leader>` <C-W>v
 
-" map <leader>. :Vexplore<cr> "有NREDTree後就沒那麼實用了"
-" 開啟_vimrc的快捷鍵 {{{
+" map <leader>. :Vexplore<cr>
+" mapping for _vimrc {{{
 "
 " }}}
 "
-" 重新載入開啟init.vim 的快捷鍵
-map <leader>, :e ~/.config/nvim/init.vim<CR>
-" 重新讀取當前的init.vim
-map <leader>. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "已更新vim的設定了，🎉祝你有個愉快的一天"<CR>
-" 如果還是怪怪的，建議全關掉後重啟，說不定可以解決你的問題
+" open init.vim
+map <leader>,, :e ~/.config/nvim/init.vim<CR>
+" reload init.vim
+map <leader>.. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉Have a nice day~"<CR>
 "
-" 以下是要裝額外的外掛才能用的一些指令================================
-" 不同情況的輸入法切換
-nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "嘸蝦米輸入法"<CR>zzi
-inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "正常模式🥰"<CR>
-" vimwiki map {{{
-nmap <leader>vs <Plug>VimwikiVSplitLink
+" plugin dependent mapping================================
+" switch input method require im-select
+" brew tap daipeihust/tap && brew install im-select
+nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
+inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "Normal mode🥰"<CR>
+" vimwiki map install vimwiki first {{{
+nmap ,vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
 " }}}
-" 用leader p來開啟vista, 即可以顯示markdown大綱的plugin
-nnoremap <leader>p :w<CR>:Vista<CR>
-" 在寫程式時好用的Tagbar，安裝時請看下面Plugin部分的說明
+" toggle Vista
+nnoremap <leader>p :w<CR>:Vista!!<CR>
+" toggle Tagbar
 nmap <leader>'' :TagbarToggle<CR>
-" Undotree, 可以看見編輯的紀錄，好用
-nmap <leader>u :UndotreeToggle<CR>
+" toggle Undotree
+nmap <leader>uu :UndotreeToggle<CR>
+" toggle Goya
+nmap <leader>gy :Goyo<CR>
 " }}}
-" Part.4 ---外部檔案 {{{
-" 我的各種縮寫，目前沒什麼東西，主要是用espanso來代替
-iab greet Hellow 🦎
+" Part.4 ---source files {{{
 source ~/.config/nvim/abbr.vimrc
 source ~/.config/nvim/mysnippets.vimrc
 " }}}
@@ -142,7 +147,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
 Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'vimwiki/vimwiki' " vimwiki ，個人在vim裡的wiki
+Plug 'vimwiki/vimwiki' "
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mbbill/undotree'
@@ -162,65 +167,59 @@ Plug 'junegunn/vim-emoji' "Emoji
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
-" {{{ 需要先安裝ctags:
+" {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
 " then I add a line in .vimrc:
 " let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'}}}
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-Plug 'yianwillis/vimcdoc' "vimcdoc提供了vim的中文文件
-Plug 'liuchengxu/vista.vim' "用:vista 來開啟，右邊顯示toc
+Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
+Plug 'liuchengxu/vista.vim' "toc
 Plug 'tpope/vim-unimpaired'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+Plug 'junegunn/goyo.vim'
 Plug 'aserebryakov/vim-todo-lists'
-Plug 'crusoexia/vim-monokai' "monokai顏色主題
-Plug 'vim-airline/vim-airline' "下面那段airline
-Plug 'vim-airline/vim-airline-themes' " airline 的顏色主題
+Plug 'crusoexia/vim-monokai' "monokai colorschemes
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'michal-h21/vimwiki-sync'
 Plug 'ThePrimeagen/vim-be-good'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " ---Deactivated Plug {{{
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'skywind3000/vim-quickui' "Display a dropdown menubar at top of the screen
 " Plug 'lyokha/vim-xkbswitch'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " }}}
-" 注意，所有的plugin都要在這個call裡面
 call plug#end()
 " }}}
-" Part.6 ---Plugin各別設定 {{{
-" 主題選用monokai
+" Part.6 ---Plugin settings {{{
 colorscheme monokai
-" ---NERDTree {{{
-"-----從這開始是 nerdtree配置 ------------
+" NERDTree {{{
 nnoremap <leader>t :NERDTreeToggle %<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
-" -- 設定nerdtree的視窗大小
-let g:NERDTreeWinSize = 25 " -- 設定nerdtree的視窗大小
-let NERDTreeShowBookmarks=1 " -- 開啟nerdtree時自動顯示bookmarks
+" nerdtree window size
+let g:NERDTreeWinSize = 25 "
+let NERDTreeShowBookmarks=1 " -
 autocmd vimenter * if !argc()|NERDTree|endif " -- 開啟nvim時若沒有任何檔案，則自動開啟nerdtree
-" -- 當nerdtree為唯一視窗時，自動關閉
+" 當nerdtree為唯一視窗時，自動關閉
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " -- 設定樹的圖示,以區分已開啟或未開啟
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-" -- 是否顯示行號
-let g:NERDTreeShowLineNumbers=0
-" -- 是否顯示隱藏檔案
-let g:NERDTreeHidden=0
-" -- 讓nerdtree更漂亮
+let g:NERDTreeShowLineNumbers=1
+let g:NERDTreeHidden=1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-" -- 過濾不顯示的檔案
 let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-" -- nerdtree的git檔案狀設定 {{{
+" -- nerdtree git status  {{{
 let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Modified'  :'✹',
                 \ 'Staged'    :'✚',
@@ -234,7 +233,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
                 \ 'Unknown'   :'?',
                 \ }
 " }}}
-" -- 為不同的檔案進行不同的高亮上色 {{{
+" -- color settings {{{
 let s:brown = "905532"
 let s:aqua =  "3AFFDB"
 let s:blue = "689FB6"
@@ -267,7 +266,7 @@ let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders
 let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
 " ----END of NERDTree ----
 "  }}}
-" ---air-line {{{
+" air-line {{{
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -313,7 +312,7 @@ let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打�
 let g:indentLine_concealcursor = "n"
 let g:indentLine_setConceal = 0
 " }}}
-" " vim-markdown-preview {{{
+"  vim-markdown-preview {{{
 " " set to 1, nvim will open the preview window after entering the markdown buffer
 " " default: 0
 " let g:mkdp_auto_start = 0
@@ -417,7 +416,7 @@ let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 set rtp+=/usr/local/opt/fzf
 " }}}
-" Part.7 ---其他設定 {{{
+" Part.7 ---let, path, and function {{{
 " path  {{{
 " 當出現provider問題時，就來這邊加一下
 let g:coc_node_path = '/usr/local/bin/node'
@@ -548,12 +547,9 @@ function! s:RunShellCommand(cmdline)
   setlocal nomodifiable
   1
 endfunction
-
 " Close all folds when opening a new buffer
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
-
-
 " Rainbow parenthesis always on!
 if exists(':RainbowParenthesesToggle')
   autocmd VimEnter * RainbowParenthesesToggle
@@ -583,6 +579,6 @@ fun! SetDiffColors()
 endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
-" Part.9 ---User Command! {{{
-" 不會寫…command! -n=0 -bar reload :source ~/.config/nvim/init.vim
+" Part.9 ---User Command! must in uppercase {{{
+" command! -n=0 -bar Reload :source ~/.config/nvim/init.vim
 " }}}
