@@ -193,6 +193,7 @@ Plug 'ThePrimeagen/vim-be-good'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/syntastic'
+Plug 'michaeljsmith/vim-indent-object'
 
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
