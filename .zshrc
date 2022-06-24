@@ -109,6 +109,17 @@ function lazygit() {
     git commit -a -m "$1"
     git push
 }
+function vimwiki () {
+    if [[ $# == 0 ]]
+    then
+        nvim +'VimwikiIndex'
+    elif [[ $1 == 'git' ]]
+    then
+        git -C ~/vimwiki/ ${@:2}
+    else
+        echo 'Usage: vimwiki [git] [args ...]'
+    fi
+}
 # }}}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

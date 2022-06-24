@@ -32,6 +32,8 @@ set splitbelow
 set splitright
 set cursorcolumn
 set cursorline
+highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 set autoread
 set visualbell
 set wildmenu
@@ -47,8 +49,6 @@ filetype plugin indent on
 syntax on
 " }}}
 " Part.3 ---map the key {{{
-highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 " navigation
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
@@ -62,8 +62,8 @@ nnoremap <right> :n<CR><Esc>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 " j and k navigate visual lines rather than logical ones
-nnoremap j gj
-nnoremap k gk
+nnoremap j gjzz
+nnoremap k gkzz
 " H remap to the begin of the line, L to the end of line
 nmap H ^
 nmap L $
@@ -87,7 +87,10 @@ inoremap <C-e> <C-o>a
 " Leader related
 " map leader to spacebar
 let mapleader=' '
-nmap <leader>wq :wq<CR>
+" save and quit
+nmap <leader>wq :wqa<CR>
+" hide the vim
+nmap <leader>\ <C-z>
 " to adjust the window size
 nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
@@ -140,7 +143,7 @@ nmap <leader>gy :Goyo<CR>
 source ~/.config/nvim/abbr.vimrc
 source ~/.config/nvim/mysnippets.vimrc
 " }}}
-" Part.5 ---Plugin {{{
+" Part.5 ---plugin {{{
 " 先安裝 https://github.com/junegunn/vim-plug
 call plug#begin()
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
@@ -179,6 +182,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'aserebryakov/vim-todo-lists'
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
 Plug 'vim-airline/vim-airline'
@@ -199,7 +203,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " }}}
 call plug#end()
 " }}}
-" Part.6 ---Plugin settings {{{
+" Part.6 ---plugin settings {{{
 colorscheme monokai
 " NERDTree {{{
 nnoremap <leader>t :NERDTreeToggle %<CR>
@@ -415,6 +419,8 @@ let g:indentLine_setConceal = 0
 let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 set rtp+=/usr/local/opt/fzf
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 " }}}
 " Part.7 ---let, path, and function {{{
 " path  {{{
@@ -579,6 +585,6 @@ fun! SetDiffColors()
 endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
-" Part.9 ---User Command! must in uppercase {{{
+" Part.9 ---user commcnd! must in uppercase {{{
 " command! -n=0 -bar Reload :source ~/.config/nvim/init.vim
 " }}}
