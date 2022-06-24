@@ -192,6 +192,7 @@ Plug 'michal-h21/vimwiki-sync'
 Plug 'ThePrimeagen/vim-be-good'
 Plug 'honza/vim-snippets'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'scrooloose/syntastic'
 
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -416,6 +417,22 @@ let g:indentLine_setConceal = 0
 " " By default the theme is define according to the preferences of the system
 " let g:mkdp_theme = 'dark'
 " " }}}
+" syntastic {{{
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+" :SyntasticCheck phpmd
+let g:syntastic_aggregate_errors = 1
+"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+" python pylint
+let g:syntastic_python_checkers = ['pylint']
+"let g:syntastic_python_exec = 'python'
+"let g:syntastic_python_args = ['-m', 'py_compile']
+" }}}
 let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 set rtp+=/usr/local/opt/fzf
