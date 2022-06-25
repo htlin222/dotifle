@@ -11,7 +11,6 @@ set clipboard=unnamed "link the system clipboard to the vim clipboard "
 set foldenable "default: manual, see the current setting by  :set foldmethod?
 set relativenumber
 set autoindent
-set tabstop=4
 set nobackup " backup file is immediately deleted upon successfully writing the original file.
 set nowritebackup
 set noswapfile
@@ -23,8 +22,9 @@ set ignorecase
 set incsearch
 set hidden
 " set nowrap
-set timeout timeoutlen=1000 ttimeoutlen=100
+set timeout timeoutlen=500 ttimeoutlen=100
 set shiftwidth=4
+set tabstop=4
 set smarttab
 set softtabstop=4
 set mouse=a " support mouse
@@ -45,6 +45,7 @@ set concealcursor-=n " show concealed curse when cursor move to the line
 set conceallevel=2
 set shortmess=at
 set cmdheight=3
+set noerrorbells "出錯時不要發出響聲警告
 filetype plugin indent on
 syntax on
 " }}}
@@ -65,8 +66,10 @@ nnoremap <C-d> <C-d>zz
 nnoremap j gjzz
 nnoremap k gkzz
 " H remap to the begin of the line, L to the end of line
-nmap H ^
-nmap L $
+noremap H ^
+noremap L $
+" noremap J G
+" noremap K gg
 " remap enter in normal mode to break a line
 nnoremap <CR> i<CR><Esc>
 " center the page before entering the insert mode
@@ -75,20 +78,31 @@ nnoremap a zza
 nnoremap A zzA
 nnoremap o zzo
 nnoremap O zzO
+nnoremap > >>
+nnoremap < <<
 " clear the search result by ctrl+K
-nnoremap <C-k> :set hls!<CR>
-" insert mode ctr
+nnoremap ? :set hls!<CR>
+" text object seletion
+" nnoremap # yiw
+" insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
 inoremap <C-e> <C-o>a
+" text object related
+nnoremap ci( cigg
+nnoremap vi( vigg
+nnoremap di( digg
 " Leader related
 " map leader to spacebar
 let mapleader=' '
 " save and quit
 nmap <leader>wq :wqa<CR>
+nmap <leader>x :q<CR>
+" escape to the console
+nnoremap <leader>z <C-z>
 " hide the vim
 nmap <leader>\ <C-z>
 " to adjust the window size
@@ -96,6 +110,7 @@ nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " paste under the current line
 nnoremap <C-p> :pu<CR>
 " leave terminal mode
@@ -146,55 +161,71 @@ source ~/.config/nvim/mysnippets.vimrc
 " Part.5 ---plugin {{{
 " 先安裝 https://github.com/junegunn/vim-plug
 call plug#begin()
+" language----
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
-Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
-Plug 'https://github.com/preservim/nerdtree' " NerdTree
-Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'vimwiki/vimwiki' "
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'mbbill/undotree'
-" [undotree/undotree.vim at master · mbbill/undotree](https://github.com/mbbill/undotree/blob/master/plugin/undotree.vim#L15)
-Plug 'petertriho/nvim-scrollbar'
-Plug 'lfv89/vim-interestingwords'
-Plug 'itchyny/vim-cursorword'
-Plug 'gcmt/taboo.vim'
-Plug 'makerj/vim-pdf'
-Plug 'michal-h21/vim-zettel'
+Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'godlygeek/tabular'
 Plug 'preservim/vim-markdown'
-Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'junegunn/vim-emoji' "Emoji
-Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
+Plug 'aserebryakov/vim-todo-lists'
+Plug 'scrooloose/syntastic'
+" completion----
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-unimpaired'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" code display----
+Plug 'lfv89/vim-interestingwords'
+Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
+Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
+" intergration----
+Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
+Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'wellle/targets.vim'
+Plug 'guns/xterm-color-table.vim'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
 " then I add a line in .vimrc:
 " let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'}}}
-Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
-Plug 'liuchengxu/vista.vim' "toc
-Plug 'tpope/vim-unimpaired'
+Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
+" interface----
+Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'aserebryakov/vim-todo-lists'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'petertriho/nvim-scrollbar'
+Plug 'gcmt/taboo.vim'
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'godlygeek/tabular'
+Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'jiangmiao/auto-pairs'
-Plug 'michal-h21/vimwiki-sync'
-Plug 'ThePrimeagen/vim-be-good'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'scrooloose/syntastic'
-Plug 'michaeljsmith/vim-indent-object'
+" commands----
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/vista.vim'
+Plug 'easymotion/vim-easymotion'
+" others----
+Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
+Plug 'michal-h21/vim-zettel'
+Plug 'itchyny/vim-cursorword'
 
+Plug 'Yggdroot/indentLine'
+Plug 'ThePrimeagen/vim-be-good'
+Plug 'phaazon/hop.nvim'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'glts/vim-textobj-comment'
+Plug 'junegunn/vim-emoji' "Emoji
+" Plug to be installed (currently dono how to use it) {{{
+" Plug 'w0rp/ale'
+" Plug 'prabirshrestha/vim-lsp'
+" }}}
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'skywind3000/vim-quickui' "Display a dropdown menubar at top of the screen
@@ -207,6 +238,11 @@ call plug#end()
 " }}}
 " Part.6 ---plugin settings {{{
 colorscheme monokai
+let g:deoplete#enable_at_startup = 1
+let g:ackprg = 'ag --nogroup --nocolor --column'
+set rtp+=/usr/local/opt/fzf
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 " NERDTree {{{
 nnoremap <leader>t :NERDTreeToggle %<CR>
 " nnoremap <leader>n :NERDTreeFocus<CR>
@@ -434,11 +470,64 @@ let g:syntastic_python_checkers = ['pylint']
 "let g:syntastic_python_exec = 'python'
 "let g:syntastic_python_args = ['-m', 'py_compile']
 " }}}
-let g:deoplete#enable_at_startup = 1
-let g:ackprg = 'ag --nogroup --nocolor --column'
-set rtp+=/usr/local/opt/fzf
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" vim-bookmarks {{{
+highlight BookmarkSign ctermbg=235 ctermfg=123
+highlight BookmarkAnnotationSign ctermbg=235 ctermfg=22
+highlight BookmarkLine ctermbg=235 ctermfg=235
+highlight BookmarkAnnotationLine ctermbg=235 ctermfg=235
+let g:bookmark_sign = '🔖'
+let g:bookmark_annotation_sign = '📣'
+let g:bookmark_no_default_key_mappings = 1
+" function {{{
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" }}}
+" }}}
+" which-key {{{
+" let g:maplocalleader = ','
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" }}}
+" easymotion {{{
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap f <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap f <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+" }}}
 " }}}
 " Part.7 ---let, path, and function {{{
 " path  {{{
@@ -522,6 +611,8 @@ fun! StripTrailingWhitespace()
   %s/\s\+$//e
 endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
+" highlight the yanked text
+autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 
 " file formats
 autocmd Filetype gitcommit setlocal spell textwidth=72
