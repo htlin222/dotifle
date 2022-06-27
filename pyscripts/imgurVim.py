@@ -1,8 +1,8 @@
-import pyimgur
+import time
+import os
 import pyperclip
 from PIL import ImageGrab
-import os
-import time
+import pyimgur
 # define the t to make the image name
 t = time.localtime()
 t = time.strftime("%y-%m-%d_%H_%M_%S", t)
@@ -14,7 +14,7 @@ image_path = "/Users/mac/Pictures"
 #    os.mkdir(image_path)
 image_path = f"{image_path}/image-{t}.png"
 image = ImageGrab.grabclipboard()
-if image is not None: # check if there's image in the clipboard
+if image is not None:  # check if there's image in the clipboard
     image = image.save(image_path)
     im = pyimgur.Imgur(CLIENT_ID)
     uploaded_image = im.upload_image(image_path, title=title)
@@ -23,10 +23,11 @@ if image is not None: # check if there's image in the clipboard
     # print(uploaded_image.type)
     link = uploaded_image.link
     result = f"![image_{t}]({link})"
-    # pyperclip.copy(result)
-    # spam = pyperclip.paste() # save the result to system clipboard
     os.remove(image_path)  # comment this line if you want to keep the image
 else:
     link = "https://i.imgur.com/9HfL3bw.jpeg"
     result = f"![🤷🏻📷只好用一隻🦎]({link})"
-print(result)
+# print(result)
+pyperclip.copy(result)
+spam = pyperclip.paste()  # save the result to system clipboard
+print("Link Generated")

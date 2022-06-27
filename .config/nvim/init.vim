@@ -1,6 +1,4 @@
-:echo "Hellow ！🦎"
-
-" (hint: hit za to open or close the fold)"
+" (hint:  za to open or close the fold)"
 " Part.1 ---stuff that must be load at first{{{
 " }}}
 "
@@ -71,8 +69,6 @@ nnoremap k gkzz
 " H remap to the begin of the line, L to the end of line
 noremap H ^
 noremap L $
-" noremap J G
-" noremap K gg
 " remap enter in normal mode to break a line
 nnoremap <CR> i<CR><Esc>
 " center the page before entering the insert mode
@@ -103,6 +99,7 @@ nnoremap di( digg
 let mapleader=' '
 " save and quit
 nmap <leader>wq :wqa<CR>
+nmap <leader> :w<CR>
 nmap <leader>x :q<CR>
 " escape to the console
 nnoremap <leader>z <C-z>
@@ -113,7 +110,6 @@ nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 " paste under the current line
 nnoremap <C-p> :pu<CR>
 " leave terminal mode
@@ -149,7 +145,7 @@ nmap ,vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
 " }}}
 " toggle Vista
-nnoremap <leader>p :w<CR>:Vista!!<CR>
+nnoremap <leader><leader>v :w<CR>:Vista!!<CR>
 " toggle Tagbar
 nmap <leader>'' :TagbarToggle<CR>
 " toggle Undotree
@@ -205,7 +201,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
 Plug 'IMOKURI/line-number-interval.nvim'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
@@ -231,6 +226,7 @@ Plug 'junegunn/vim-emoji' "Emoji
 " Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " }}}
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -519,11 +515,11 @@ autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 " }}}
 " }}}
-" which-key {{{
-" let g:maplocalleader = ','
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-" }}}
+" " which-key {{{
+" " let g:maplocalleader = ','
+" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" " }}}
 " easymotion {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -720,6 +716,25 @@ endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
 "
-" Part.9 ---user commcnd! must in uppercase {{{
-" command! -n=0 -bar Reload :source ~/.config/nvim/init.vim
+" Part.9 ---user commond! must in uppercase {{{
+" Rename File {{{
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>rn :call RenameFile()
+" }}}
+" Paste Imgur link {{{
+function! ImgurLink()
+    exec ':silent !python ~/.dotfile/pyscripts/imgurVim.py'
+    exec ':silent pu'
+endfunction
+command! Img :call ImgurLink()
+map <leader><leader>p :call ImgurLink()<CR>
+" }}}
 " }}}

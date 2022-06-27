@@ -8,7 +8,7 @@ local config = require "core.config"
 local style = require "core.style"
 
 ------------------------------ Themes ----------------------------------------
-
+core.reload_module("colors.vscode-dark")
 -- light theme:
 -- core.reload_module("colors.summer")
 
@@ -20,8 +20,8 @@ local style = require "core.style"
 
 ------------------------------- Fonts ----------------------------------------
 
--- customize fonts:
--- style.font = renderer.font.load(DATADIR .. "/fonts/FiraSans-Regular.ttf", 14 * SCALE)
+customize fonts:
+style.font = renderer.font.load(DATADIR .. "/Users/mac/Library/Fonts/Hack\ Regular\ Nerd\ Font\ Complete\ Mono.ttf", 14 * SCALE)
 -- style.code_font = renderer.font.load(DATADIR .. "/fonts/JetBrainsMono-Regular.ttf", 14 * SCALE)
 --
 -- font names used by lite:
