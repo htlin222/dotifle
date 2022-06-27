@@ -167,7 +167,7 @@ Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'preservim/vim-markdown'
 Plug 'aserebryakov/vim-todo-lists'
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
 " completion----
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
@@ -175,19 +175,19 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " code display----
 Plug 'lfv89/vim-interestingwords'
-Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
+" Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " intergration----
 Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
-Plug 'guns/xterm-color-table.vim'
+" Plug 'guns/xterm-color-table.vim'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -198,9 +198,9 @@ Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'petertriho/nvim-scrollbar'
+" Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
@@ -209,19 +209,19 @@ Plug 'vim-airline/vim-airline-themes'
 " commands----
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " others----
 Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
 Plug 'itchyny/vim-cursorword'
 
 Plug 'Yggdroot/indentLine'
-Plug 'ThePrimeagen/vim-be-good'
-Plug 'phaazon/hop.nvim'
+" Plug 'ThePrimeagen/vim-be-good'
+" Plug 'phaazon/hop.nvim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'glts/vim-textobj-comment'
-Plug 'junegunn/vim-emoji' "Emoji
+" Plug 'junegunn/vim-emoji' "Emoji
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/vim-lsp'
@@ -455,20 +455,20 @@ let g:indentLine_setConceal = 0
 " let g:mkdp_theme = 'dark'
 " " }}}
 " syntastic {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" :SyntasticCheck phpmd
-let g:syntastic_aggregate_errors = 1
-"let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
-" python pylint
-let g:syntastic_python_checkers = ['pylint']
-"let g:syntastic_python_exec = 'python'
-"let g:syntastic_python_args = ['-m', 'py_compile']
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"" :SyntasticCheck phpmd
+"let g:syntastic_aggregate_errors = 1
+""let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+"" python pylint
+"let g:syntastic_python_checkers = ['pylint']
+""let g:syntastic_python_exec = 'python'
+""let g:syntastic_python_args = ['-m', 'py_compile']
 " }}}
 " vim-bookmarks {{{
 highlight BookmarkSign ctermbg=235 ctermfg=123
@@ -511,22 +511,22 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 " }}}
 " easymotion {{{
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nmap f <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap f <Plug>(easymotion-overwin-f2)
+" " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" " `s{char}{label}`
+" nmap f <Plug>(easymotion-overwin-f)
+" " or
+" " `s{char}{char}{label}`
+" " Need one more keystroke, but on average, it may be more comfortable.
+" nmap f <Plug>(easymotion-overwin-f2)
 
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
+" " Turn on case-insensitive feature
+" let g:EasyMotion_smartcase = 1
 
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+" " JK motions: Line motions
+" map <Leader>j <Plug>(easymotion-j)
+" map <Leader>k <Plug>(easymotion-k)
 " }}}
 " }}}
 " Part.7 ---let, path, and function {{{
