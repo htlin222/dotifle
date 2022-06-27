@@ -167,7 +167,7 @@ Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'preservim/vim-markdown'
 Plug 'aserebryakov/vim-todo-lists'
-" Plug 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 " completion----
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
@@ -175,19 +175,19 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " code display----
 Plug 'lfv89/vim-interestingwords'
-" Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
+Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " intergration----
 Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
-" Plug 'guns/xterm-color-table.vim'
+Plug 'guns/xterm-color-table.vim'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -198,9 +198,9 @@ Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-" Plug 'petertriho/nvim-scrollbar'
+Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
@@ -209,19 +209,19 @@ Plug 'vim-airline/vim-airline-themes'
 " commands----
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
-" Plug 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " others----
 Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
 Plug 'itchyny/vim-cursorword'
 
 Plug 'Yggdroot/indentLine'
-" Plug 'ThePrimeagen/vim-be-good'
-" Plug 'phaazon/hop.nvim'
+Plug 'ThePrimeagen/vim-be-good'
+Plug 'phaazon/hop.nvim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'glts/vim-textobj-comment'
-" Plug 'junegunn/vim-emoji' "Emoji
+Plug 'junegunn/vim-emoji' "Emoji
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/vim-lsp'
@@ -250,9 +250,9 @@ nnoremap <C-f> :NERDTreeFind<CR>
 " nerdtree window size
 let g:NERDTreeWinSize = 25 "
 let NERDTreeShowBookmarks=1 " -
-autocmd vimenter * if !argc()|NERDTree|endif " -- 開啟nvim時若沒有任何檔案，則自動開啟nerdtree
+" autocmd vimenter * if !argc()|NERDTree|endif " -- 開啟nvim時若沒有任何檔案，則自動開啟nerdtree
 " 當nerdtree為唯一視窗時，自動關閉
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " -- 設定樹的圖示,以區分已開啟或未開啟
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -628,10 +628,10 @@ au Bufread *  if expand('%') =~ "zathurarc" | set syntax=vim | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    " \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 " Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Highlight words to avoid in tech writing
 " http://css-tricks.com/words-avoid-educational-writing/
 highlight TechWordsToAvoid ctermbg=red ctermfg=white
