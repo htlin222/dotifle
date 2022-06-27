@@ -1,7 +1,9 @@
 :echo "Hellow ！🦎"
+
 " (hint: hit za to open or close the fold)"
 " Part.1 ---stuff that must be load at first{{{
 " }}}
+"
 " Part.2 ---set the environment {{{
 " the follwoing line must be in the first line
 set nocompatible
@@ -16,12 +18,13 @@ set nowritebackup
 set noswapfile
 set history=100
 set showcmd
+set noshowmode
 set incsearch
+set modifiable
 set smartcase
 set ignorecase
 set incsearch
 set hidden
-" set nowrap
 set timeout timeoutlen=500 ttimeoutlen=100
 set shiftwidth=4
 set tabstop=4
@@ -44,11 +47,11 @@ set completeopt-=preview " For No Previews
 set concealcursor-=n " show concealed curse when cursor move to the line
 set conceallevel=2
 set shortmess=at
-set cmdheight=3
-set noerrorbells "出錯時不要發出響聲警告
+set cmdheight=2
 filetype plugin indent on
 syntax on
 " }}}
+"
 " Part.3 ---map the key {{{
 " navigation
 nnoremap <C-j> <C-w><C-j>
@@ -126,21 +129,21 @@ map <leader>; <C-W>s
 " split horizontal
 map <leader>` <C-W>v
 
-" map <leader>. :Vexplore<cr>
+map <leader>t :Lexplore<cr>
 " mapping for _vimrc {{{
 "
 " }}}
 "
 " open init.vim
-map <leader>,, :e ~/.config/nvim/init.vim<CR>
+map <leader>,, :silent e ~/.config/nvim/init.vim<CR>
 " reload init.vim
-map <leader>.. :w<CR>:source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉Have a nice day~"<CR>
+map <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
 "
 " plugin dependent mapping================================
 " switch input method require im-select
 " brew tap daipeihust/tap && brew install im-select
-nnoremap <silent> <leader>i :!im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
-inoremap <silent> <Esc> <Esc>:!if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>:echo "Normal mode🥰"<CR>
+nnoremap <silent> <leader>i :silent !im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
+inoremap <silent> <Esc> <Esc>:silent !if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>
 " vimwiki map install vimwiki first {{{
 nmap ,vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
@@ -154,10 +157,12 @@ nmap <leader>uu :UndotreeToggle<CR>
 " toggle Goya
 nmap <leader>gy :Goyo<CR>
 " }}}
+"
 " Part.4 ---source files {{{
 source ~/.config/nvim/abbr.vimrc
 source ~/.config/nvim/mysnippets.vimrc
 " }}}
+"
 " Part.5 ---plugin {{{
 " 先安裝 https://github.com/junegunn/vim-plug
 call plug#begin()
@@ -179,7 +184,6 @@ Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 " intergration----
-Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'vim-pandoc/vim-pandoc'
@@ -200,12 +204,12 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
+Plug 'IMOKURI/line-number-interval.nvim'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 " commands----
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
@@ -216,7 +220,6 @@ Plug 'michal-h21/vim-zettel'
 Plug 'itchyny/vim-cursorword'
 
 Plug 'Yggdroot/indentLine'
-Plug 'ThePrimeagen/vim-be-good'
 Plug 'phaazon/hop.nvim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
@@ -225,6 +228,9 @@ Plug 'junegunn/vim-emoji' "Emoji
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/vim-lsp'
+" Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 " }}}
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -236,6 +242,7 @@ Plug 'junegunn/vim-emoji' "Emoji
 " }}}
 call plug#end()
 " }}}
+"
 " Part.6 ---plugin settings {{{
 colorscheme monokai
 let g:deoplete#enable_at_startup = 1
@@ -243,87 +250,96 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 set rtp+=/usr/local/opt/fzf
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
-" NERDTree {{{
-nnoremap <leader>t :NERDTreeToggle %<CR>
-" nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
-" nerdtree window size
-let g:NERDTreeWinSize = 25 "
-let NERDTreeShowBookmarks=1 " -
-" autocmd vimenter * if !argc()|NERDTree|endif " -- 開啟nvim時若沒有任何檔案，則自動開啟nerdtree
-" 當nerdtree為唯一視窗時，自動關閉
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" -- 設定樹的圖示,以區分已開啟或未開啟
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-let g:NERDTreeShowLineNumbers=1
-let g:NERDTreeHidden=1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-" -- nerdtree git status  {{{
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'✹',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
+" newtrw settings: {{{
+let g:netrw_winsize = 20
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let ghregex='\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide=ghregex
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 " }}}
-" -- color settings {{{
-let s:brown = "905532"
-let s:aqua =  "3AFFDB"
-let s:blue = "689FB6"
-let s:darkBlue = "44788E"
-let s:purple = "834F79"
-let s:lightPurple = "834F79"
-let s:red = "AE403F"
-let s:beige = "F5C06F"
-let s:yellow = "F09F17"
-let s:orange = "D4843E"
-let s:darkOrange = "F16529"
-let s:pink = "CB6F6F"
-let s:salmon = "EE6E73"
-let s:green = "8FAA54"
-let s:lightGreen = "31B53E"
-let s:white = "FFFFFF"
-let s:rspec_red = 'FE405F'
-let s:git_orange = 'F54D27'
-" }}}
-let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
+" " NERDTree {{{
+" nnoremap <leader>t :NERDTreeToggle %<CR>
+" " nnoremap <leader>n :NERDTreeFocus<CR>
+" nnoremap <C-f> :NERDTreeFind<CR>
+" " nerdtree window size
+" let g:NERDTreeHijackNetrw=0
+" let g:NERDTreeWinSize = 25 "
+" let NERDTreeShowBookmarks=1 " -
+" " autocmd vimenter * if !argc()|NERDTree|endif " -- 開啟nvim時若沒有任何檔案，則自動開啟nerdtree
+" " 當nerdtree為唯一視窗時，自動關閉
+" " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" " -- 設定樹的圖示,以區分已開啟或未開啟
+" let g:NERDTreeDirArrowExpandable = '▸'
+" let g:NERDTreeDirArrowCollapsible = '▾'
+" let g:NERDTreeShowLineNumbers=1
+" let g:NERDTreeHidden=1
+" let NERDTreeMinimalUI = 1
+" let NERDTreeDirArrows = 1
+" let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+" " -- nerdtree git status  {{{
+" let g:NERDTreeGitStatusIndicatorMapCustom = {
+"                 \ 'Modified'  :'✹',
+"                 \ 'Staged'    :'✚',
+"                 \ 'Untracked' :'✭',
+"                 \ 'Renamed'   :'➜',
+"                 \ 'Unmerged'  :'═',
+"                 \ 'Deleted'   :'✖',
+"                 \ 'Dirty'     :'✗',
+"                 \ 'Ignored'   :'☒',
+"                 \ 'Clean'     :'✔︎',
+"                 \ 'Unknown'   :'?',
+"                 \ }
+" " }}}
+" " -- color settings {{{
+" let s:brown = "905532"
+" let s:aqua =  "3AFFDB"
+" let s:blue = "689FB6"
+" let s:darkBlue = "44788E"
+" let s:purple = "834F79"
+" let s:lightPurple = "834F79"
+" let s:red = "AE403F"
+" let s:beige = "F5C06F"
+" let s:yellow = "F09F17"
+" let s:orange = "D4843E"
+" let s:darkOrange = "F16529"
+" let s:pink = "CB6F6F"
+" let s:salmon = "EE6E73"
+" let s:green = "8FAA54"
+" let s:lightGreen = "31B53E"
+" let s:white = "FFFFFF"
+" let s:rspec_red = 'FE405F'
+" let s:git_orange = 'F54D27'
+" " }}}
+" let g:NERDTreeExtensionHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExtensionHighlightColor['css'] = s:blue " sets the color of css files to blue
 
-let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
+" let g:NERDTreeExactMatchHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreeExactMatchHighlightColor['.gitignore'] = s:git_orange " sets the color for .gitignore files
 
-let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
-let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
+" let g:NERDTreePatternMatchHighlightColor = {} " this line is needed to avoid error
+" let g:NERDTreePatternMatchHighlightColor['.*_spec\.rb$'] = s:rspec_red " sets the color for files ending with _spec.rb
 
-let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders that did not match any rule
-let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
-" ----END of NERDTree ----
-"  }}}
-" air-line {{{
-let g:airline_powerline_fonts = 1
+" let g:WebDevIconsDefaultFolderSymbolColor = s:beige " sets the color for folders that did not match any rule
+" let g:WebDevIconsDefaultFileSymbolColor = s:blue " sets the color for files that did not match any rule
+" " ----END of NERDTree ----
+" "  }}}
+" " air-line {{{
+" let g:airline_powerline_fonts = 1
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
 
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-" }}}
+" " airline symbols
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = ''
+" " }}}
 " gitgutter settings: {{{
 let g:gitgutter_sign_added = '㊉'
 " let g:gitgutter_sign_modified = 'yy'
@@ -335,11 +351,9 @@ let g:gitgutter_sign_removed = '㊀'
 " vimwiki {{{
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_folding = 'expr'
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
-autocmd FileType vimwiki setlocal foldenable
-autocmd FileType vim setlocal foldmethod=marker
+let g:vimwiki_folding = 'expr'
 let g:vimwiki_global_ext=0
 let g:vimwiki_sync_branch = "main"
 let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
@@ -511,24 +525,31 @@ nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
 " }}}
 " easymotion {{{
-" let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" " `s{char}{label}`
-" nmap f <Plug>(easymotion-overwin-f)
-" " or
-" " `s{char}{char}{label}`
-" " Need one more keystroke, but on average, it may be more comfortable.
-" nmap f <Plug>(easymotion-overwin-f2)
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap f <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap f <Plug>(easymotion-overwin-f2)
 
-" " Turn on case-insensitive feature
-" let g:EasyMotion_smartcase = 1
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
 
-" " JK motions: Line motions
-" map <Leader>j <Plug>(easymotion-j)
-" map <Leader>k <Plug>(easymotion-k)
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+" }}}
+" line-number-interval
+" {{{
+let g:line_number_interval_enable_at_startup = 1
+let g:line_number_interval#use_custom = 1
+let g:line_number_interval#custom_interval = [1,2,3,4,5,10,20,30,40,50,60,70,80,90]
 " }}}
 " }}}
+"
 " Part.7 ---let, path, and function {{{
 " path  {{{
 " 當出現provider問題時，就來這邊加一下
@@ -591,7 +612,10 @@ setlocal cole=1
 
 " }}}
 " }}}
+"
 " Part.8 ---autocmd {{{
+au BufEnter * set nospell
+
 " Run code if is python3
 autocmd BufRead,BufNewFile *.py map <leader>r :% w !python3<CR>
 " If you'd like to have it default to Nested folding
@@ -623,10 +647,11 @@ autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 e
 " specify syntax highlighting for specific files
 autocmd Bufread,BufNewFile *.spv set filetype=php
 autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
+autocmd FileType vim setlocal foldmethod=marker
 au Bufread *  if expand('%') =~ "zathurarc" | set syntax=vim | endif
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+" autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 " autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     " \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
@@ -694,6 +719,7 @@ fun! SetDiffColors()
 endfun
 autocmd FilterWritePre * call SetDiffColors()
 " }}}
+"
 " Part.9 ---user commcnd! must in uppercase {{{
 " command! -n=0 -bar Reload :source ~/.config/nvim/init.vim
 " }}}
