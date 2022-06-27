@@ -7,6 +7,7 @@
 set nocompatible
 filetype off
 set number "show the line number"
+set shm+=I
 set clipboard=unnamed "link the system clipboard to the vim clipboard "
 set foldenable "default: manual, see the current setting by  :set foldmethod?
 set relativenumber
@@ -19,6 +20,7 @@ set showcmd
 set noshowmode
 set incsearch
 set modifiable
+set autowriteall
 set smartcase
 set ignorecase
 set incsearch
@@ -167,18 +169,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'preservim/vim-markdown'
-Plug 'aserebryakov/vim-todo-lists'
 Plug 'scrooloose/syntastic'
 " completion----
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sirver/ultisnips'
 " code display----
 Plug 'lfv89/vim-interestingwords'
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
+Plug 'frazrepo/vim-rainbow'
 " intergration----
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
@@ -213,7 +216,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
 Plug 'itchyny/vim-cursorword'
-
 Plug 'Yggdroot/indentLine'
 Plug 'phaazon/hop.nvim'
 Plug 'michaeljsmith/vim-indent-object'
@@ -231,6 +233,7 @@ Plug 'junegunn/vim-emoji' "Emoji
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'skywind3000/vim-quickui' "Display a dropdown menubar at top of the screen
+" Plug 'aserebryakov/vim-todo-lists'
 " Plug 'lyokha/vim-xkbswitch'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'masukomi/vim-markdown-folding'
@@ -734,6 +737,7 @@ function! ImgurLink()
     exec ':silent !python ~/.dotfile/pyscripts/imgurVim.py'
     exec ':silent pu'
 endfunction
+
 command! Img :call ImgurLink()
 map <leader><leader>p :call ImgurLink()<CR>
 " }}}
