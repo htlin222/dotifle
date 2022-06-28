@@ -1,13 +1,12 @@
 " (hint:  za to open or close the fold)"
-" Part.1 ---stuff that must be load at first{{{
+" Part.1 ---{{{
+set nocompatible
+filetype off
 " }}}
 "
 " Part.2 ---set the environment {{{
-" the follwoing line must be in the first line
-set nocompatible
-filetype off
 set number "show the line number"
-set shm=I
+set shm+=I
 set clipboard=unnamed "link the system clipboard to the vim clipboard "
 set foldenable "default: manual, see the current setting by  :set foldmethod?
 set relativenumber
@@ -79,41 +78,41 @@ nnoremap a zza
 nnoremap A zzA
 nnoremap o zzo
 nnoremap O zzO
+" make the indent short
 nnoremap > >>
 nnoremap < <<
 " clear the search result by ctrl+K
 nnoremap ? :set hls!<CR>
 " text object seletion
-" nnoremap # yiw
+nnoremap \w yiw
+nnoremap ci( cigg
+nnoremap vi( vigg
+nnoremap di( digg
+" paste under the current line
+nnoremap <C-p> :pu<CR>
 " insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
+" jump out of the parenthesis
 inoremap <C-e> <C-o>a
-" text object related
-nnoremap ci( cigg
-nnoremap vi( vigg
-nnoremap di( digg
 " Leader related
 " map leader to spacebar
 let mapleader=' '
 " save and quit
-nmap <leader>wq :wqa<CR>
-nmap <leader> :w<CR>
-nmap <leader>x :q<CR>
+nnoremap <leader>wq :wqa<CR>
+nnoremap <leader> :w<CR>
+nnoremap <leader>x :q<CR>
 " escape to the console
-nnoremap <leader>z <C-z>
-" hide the vim
-nmap <leader>\ <C-z>
+nnoremap <leader>\ <C-z>
 " to adjust the window size
 nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
-" paste under the current line
-nnoremap <C-p> :pu<CR>
+" nnoremap <leader>z <C-z>
 " leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 " navigate to other windows by ctrl hjkl
@@ -121,29 +120,29 @@ tnoremap <C-j> <C-\><C-n><C-w><C-j>
 tnoremap <C-k> <C-\><C-n><C-w><C-k>
 tnoremap <C-l> <C-\><C-n><C-w><C-l>
 tnoremap <C-h> <C-\><C-n><C-w><C-h>
-" Vim split windows
 " split vertical
-map <leader>; <C-W>s
+nnoremap <leader>; <C-W>s
 " split horizontal
-map <leader>` <C-W>v
-
-map <leader>t :Lexplore<cr>
+nnoremap <leader>` <C-W>v
+" open newtrw at the left
+nnoremap <leader>t :Lexplore<cr>
 " mapping for _vimrc {{{
-"
+" inoremap jk <esc>
 " }}}
 "
 " open init.vim
-map <leader>,, :silent e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>,, :silent e ~/.config/nvim/init.vim<CR>
 " reload init.vim
-map <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
+nnoremap <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
 "
 " plugin dependent mapping================================
 " switch input method require im-select
 " brew tap daipeihust/tap && brew install im-select
 " vimwiki map install vimwiki first {{{
-nmap ,vs <Plug>VimwikiVSplitLink
-nmap ,t :VimwikiTabnewLink<CR>
+nnoremap ,vs <Plug>VimwikiVSplitLink<CR>
+nnoremap ,t :VimwikiTabnewLink<CR>
 " }}}
+" to toggle plugin via leader
 " toggle Vista
 nnoremap <leader><leader>v :w<CR>:Vista!!<CR>
 " toggle Tagbar
@@ -151,7 +150,7 @@ nnoremap <leader>'' :TagbarToggle<CR>
 " toggle Undotree
 nnoremap <leader>uu :UndotreeToggle<CR>
 " toggle Goya
-noremap <leader>gy :Goyo<CR>
+nnoremap <leader>gy :Goyo<CR>
 " }}}
 "
 " Part.4 ---source files {{{
