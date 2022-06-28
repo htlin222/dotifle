@@ -103,6 +103,7 @@ alias note='vim ~/vimwiki/index.md'
 # }}}
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 # My persional function {{{
 function lg() {
     git add .

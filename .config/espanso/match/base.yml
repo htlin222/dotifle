@@ -117,7 +117,7 @@ matches:
             A-->B;A-->C;
             ```
   -
-    trigger: "lg"
+    trigger: "lazyg"
     replace: "lg \"$|$\""
   -
     trigger: "newtri"
