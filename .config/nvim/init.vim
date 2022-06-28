@@ -7,7 +7,7 @@
 set nocompatible
 filetype off
 set number "show the line number"
-set shm+=I
+set shm=I
 set clipboard=unnamed "link the system clipboard to the vim clipboard "
 set foldenable "default: manual, see the current setting by  :set foldmethod?
 set relativenumber
@@ -140,8 +140,6 @@ map <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc relo
 " plugin dependent mapping================================
 " switch input method require im-select
 " brew tap daipeihust/tap && brew install im-select
-nnoremap <silent> <leader>i :silent !im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
-inoremap <silent> <Esc> <Esc>:silent !if \! im-select \| grep -q 'ABC' ; then im-select com.apple.keylayout.ABC ; fi <CR>
 " vimwiki map install vimwiki first {{{
 nmap ,vs <Plug>VimwikiVSplitLink
 nmap ,t :VimwikiTabnewLink<CR>
@@ -149,11 +147,11 @@ nmap ,t :VimwikiTabnewLink<CR>
 " toggle Vista
 nnoremap <leader><leader>v :w<CR>:Vista!!<CR>
 " toggle Tagbar
-nmap <leader>'' :TagbarToggle<CR>
+nnoremap <leader>'' :TagbarToggle<CR>
 " toggle Undotree
-nmap <leader>uu :UndotreeToggle<CR>
+nnoremap <leader>uu :UndotreeToggle<CR>
 " toggle Goya
-nmap <leader>gy :Goyo<CR>
+noremap <leader>gy :Goyo<CR>
 " }}}
 "
 " Part.4 ---source files {{{
@@ -208,6 +206,7 @@ Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
 Plug 'itchyny/lightline.vim'
+Plug 'mhinz/vim-startify'
 " commands----
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
@@ -246,6 +245,7 @@ call plug#end()
 colorscheme monokai
 let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:startify_custom_header = startify#center(['🦎🦎🦎🦎🦎'])
 set rtp+=/usr/local/opt/fzf
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -717,6 +717,13 @@ fun! SetDiffColors()
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
 autocmd FilterWritePre * call SetDiffColors()
+" Imselect
+nnoremap <silent> <leader>i :silent !im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
+function! ABC()
+  exec ':silent !if \! im-select \| grep -q "ABC" ; then im-select com.apple.keylayout.ABC ; fi'
+endfunction
+au InsertLeave * :call ABC()
+au BufWinEnter * :set shm+=I
 " }}}
 "
 " Part.9 ---user commond! must in uppercase {{{
