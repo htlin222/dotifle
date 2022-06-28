@@ -104,7 +104,7 @@ alias note='vim ~/vimwiki/index.md'
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 # My persional function {{{
-function lazygit() {
+function lg() {
     git add .
     git commit -a -m "$1"
     git push
