@@ -106,7 +106,7 @@ export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 # My persional function {{{
-function lg() {
+function lazygit() {
     git add .
     git commit -a -m "$1"
     git push

@@ -6,7 +6,7 @@ import time
 # define the t to make the image name
 t = time.localtime()
 t = time.strftime("%y-%m-%d_%H_%M_%S", t)
-
+# set your client I
 CLIENT_ID = "713cacc415ed391"
 title = "Uploaded with PyImgur"
 image_path = "/Users/mac/Pictures"

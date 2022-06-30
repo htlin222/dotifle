@@ -36,6 +36,8 @@ set cursorcolumn
 set cursorline
 highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
 highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight SignColumn guibg=darkgrey
+highlight clear SignColumn
 set autoread
 set visualbell
 set wildmenu
@@ -182,8 +184,8 @@ Plug 'frazrepo/vim-rainbow'
 " intergration----
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
