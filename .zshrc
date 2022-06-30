@@ -100,6 +100,7 @@ alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias pip3="pip"
 alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
+alias vimdiff='nvim -d'
 # }}}
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
