@@ -117,8 +117,8 @@ matches:
             A-->B;A-->C;
             ```
   -
-    trigger: "lazyg"
-    replace: "lg \"$|$\""
+    trigger: "lzg"
+    replace: "lazygit \"$|$\""
   -
     trigger: "newtri"
     replace: "\"$|$\",\"{{clipboard}}\""
