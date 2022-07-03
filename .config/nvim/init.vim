@@ -66,6 +66,8 @@ nnoremap <left> :N<CR><Esc>zz
 nnoremap <right> :n<CR><Esc>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
+" paste under the current line
+nnoremap <c-p> :pu<CR>
 " j and k navigate visual lines rather than logical ones
 nnoremap j gjzz
 nnoremap k gkzz
@@ -90,8 +92,6 @@ nnoremap \w yiw
 nnoremap ci( cigg
 nnoremap vi( vigg
 nnoremap di( digg
-" paste under the current line
-nnoremap <C-p> :pu<CR>
 " insert mode
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
@@ -116,12 +116,12 @@ nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
 " nnoremap <leader>z <C-z>
 " leave terminal mode
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc><Esc> <C-\><C-n>
 " navigate to other windows by ctrl hjkl
-tnoremap <C-j> <C-\><C-n><C-w><C-j>
-tnoremap <C-k> <C-\><C-n><C-w><C-k>
-tnoremap <C-l> <C-\><C-n><C-w><C-l>
-tnoremap <C-h> <C-\><C-n><C-w><C-h>
+" tnoremap <C-j> <C-\><C-n><C-w><C-j>
+" tnoremap <C-k> <C-\><C-n><C-w><C-k>
+" tnoremap <C-l> <C-\><C-n><C-w><C-l>
+" tnoremap <C-h> <C-\><C-n><C-w><C-h>
 " split vertical
 nnoremap <leader>; <C-W>s
 " split horizontal
@@ -178,7 +178,6 @@ Plug 'sirver/ultisnips'
 " code display----
 Plug 'lfv89/vim-interestingwords'
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
-Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } | Plug 'junegunn/limelight.vim'
 Plug 'frazrepo/vim-rainbow'
 " intergration----
@@ -190,7 +189,7 @@ Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
 Plug 'guns/xterm-color-table.vim'
-Plug 'francoiscabrol/ranger.vim'
+Plug 'kevinhwang91/rnvimr'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -230,6 +229,7 @@ Plug 'junegunn/vim-emoji' "Emoji
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 " }}}
 " ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
@@ -546,9 +546,42 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 " }}}
-" ranger {{{
-let g:ranger_map_keys=0
-nnoremap <leader>r :Ranger<CR>
+" rnvimr {{{
+nnoremap <silent> <leader>r :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+tnoremap <silent> <leader>r <C-\><C-n>:RnvimrToggle<CR>
+" let g:rnvimr_shadow_winblend = 70
+" let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
+let g:rnvimr_ex_enable = 1
+let g:rnvimr_pick_enable = 1
+let g:rnvimr_draw_border = 0 " Change the border's color
+let g:rnvimr_border_attr = {'fg': 14, 'bg': -1} " Add a shadow window, value is equal to 100 will disable shadow
+let g:rnvimr_shadow_winblend = 70 " let g:rnvimr_bw_enable = 1 highlight link RnvimrNormal CursorLine
+highlight link RnvimrNormal CursorLine
+" Map Rnvimr action
+let g:rnvimr_action = {
+            \ '<C-t>': 'NvimEdit tabedit',
+            \ '<C-x>': 'NvimEdit split',
+            \ '<C-v>': 'NvimEdit vsplit',
+            \ 'gw': 'JumpNvimCwd',
+            \ 'yw': 'EmitRangerCwd'
+            \ }
+
+" Add views for Ranger to adapt the size of floating window
+let g:rnvimr_ranger_views = [
+            \ {'minwidth': 90, 'ratio': []},
+            \ {'minwidth': 50, 'maxwidth': 89, 'ratio': [1,1]},
+            \ {'maxwidth': 49, 'ratio': [1]}
+            \ ]
+
+" Customize the initial layout
+let g:rnvimr_layout = {
+            \ 'relative': 'editor',
+            \ 'width': float2nr(round(0.7 * &columns)),
+            \ 'height': float2nr(round(0.7 * &lines)),
+            \ 'col': float2nr(round(0.15 * &columns)),
+            \ 'row': float2nr(round(0.15 * &lines)),
+            \ 'style': 'minimal'
+            \ }
 " }}}
 " fzf.vim {{{
 "
@@ -561,9 +594,36 @@ let g:fzf_action = {
 
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+" let g:fzf_layout = { 'down': '~40%' }
+" In Neovim, you can set up fzf window using a Vim command
+" let g:fzf_layout = { 'window': 'enew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '10split enew' }
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+function! CreateCenteredFloatingWindow()
+    let width = min([&columns - 4, max([80, &columns - 20])])
+    let height = min([&lines - 4, max([20, &lines - 10])])
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-" Customize fzf colors to match your color scheme
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
+
+let g:fzf_layout = { 'window': 'call CreateCenteredFloatingWindow()' }
 let g:fzf_colors =
             \ { 'fg':      ['fg', 'Normal'],
             \ 'bg':      ['bg', 'Normal'],
@@ -583,6 +643,8 @@ let g:fzf_colors =
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+nnoremap <silent><leader>p :Files %:p:h<CR>
+tnoremap <silent><leader>p <Esc>
 nnoremap ,fl :Lines
 nnoremap ,fb :BLines
 nnoremap ,ff :Files
@@ -591,6 +653,16 @@ nnoremap ,f? :GFiles?
 nnoremap ,ft :Tags<cr>
 nnoremap ,fa :Ag
 nnoremap ,fc :Commits
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-down,ctrl-p:preview-up\""
 " }}}
 " line-number-interval
