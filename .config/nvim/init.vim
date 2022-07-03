@@ -190,6 +190,7 @@ Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
 Plug 'guns/xterm-color-table.vim'
+Plug 'francoiscabrol/ranger.vim'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -349,8 +350,11 @@ let g:gitgutter_sign_removed = '㊀'
 " let g:gitgutter_sign_modified_removed = 'ww'
 " }}}
 " vimwiki {{{
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+let wiki_1 = {'path': '~/Medical',
+                      \ 'syntax': 'markdown', 'ext': '.md'}
+let wiki_2 = {'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}
+let g:vimwiki_list = [wiki_1,wiki_2]
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
 let g:vimwiki_folding = 'expr'
@@ -541,6 +545,53 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+" }}}
+" ranger {{{
+let g:ranger_map_keys=0
+nnoremap <leader>r :Ranger<CR>
+" }}}
+" fzf.vim {{{
+"
+" fzf settings
+" This is the default extra key bindings
+let g:fzf_action = {
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+nnoremap ,fl :Lines
+nnoremap ,fb :BLines
+nnoremap ,ff :Files
+nnoremap ,fg :GFiles
+nnoremap ,f? :GFiles?
+nnoremap ,ft :Tags<cr>
+nnoremap ,fa :Ag
+nnoremap ,fc :Commits
+let $FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-down,ctrl-p:preview-up\""
 " }}}
 " line-number-interval
 " {{{
