@@ -86,7 +86,7 @@ nnoremap O zzO
 nnoremap > >>
 nnoremap < <<
 " clear the search result by ctrl+K
-nnoremap ? :set hls!<CR>
+nnoremap <silent>? :set hls!<CR>
 " text object seletion
 nnoremap \w yiw
 nnoremap ci( cigg
@@ -183,8 +183,6 @@ Plug 'frazrepo/vim-rainbow'
 " intergration----
 Plug 'makerj/vim-pdf'
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
-" Plug 'vim-pandoc/vim-pandoc'
-" Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'yianwillis/vimcdoc' "vimcdoc in Chinese
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
@@ -239,6 +237,8 @@ Plug 'junegunn/vim-emoji' "Emoji
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 " }}}
 call plug#end()
 " }}}
@@ -247,7 +247,7 @@ call plug#end()
 colorscheme monokai
 let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:startify_custom_header = startify#center(['🦎🦎🦎🦎🦎'])
+let g:startify_custom_header = startify#center(['Why does the lizard stick his tongue out? The lizard sticks its tongue out because that is the way its listening and looking and tasting its environment. It is its means of appreciating what is in front of it. 🦎'])
 set rtp+=/usr/local/opt/fzf
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -361,6 +361,34 @@ let g:vimwiki_folding = 'expr'
 let g:vimwiki_global_ext=0
 let g:vimwiki_sync_branch = "main"
 let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
+let g:zettel_default_mappings = 0
+" This is basically the same as the default configuration
+augroup filetype_vimwiki
+  autocmd!
+  autocmd FileType vimwiki imap <silent> [[ [[<esc><Plug>ZettelSearchMap
+  autocmd FileType vimwiki nmap T <Plug>ZettelYankNameMap
+  autocmd FileType vimwiki xmap z <Plug>ZettelNewSelectedMap
+  autocmd FileType vimwiki nmap gZ <Plug>ZettelReplaceFileWithLink
+augroup END
+let g:zettel_format = "%y%m%d-%H%M-%title"
+let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
+let g:zettel_generated_index_title_level = 2
+let g:zettel_backlinks_title = "Backlinks"
+let g:zettel_backlinks_title_level = 3
+let g:zettel_generated_tags_title = "Tags"
+let g:zettel_generated_tags_title_level = 3
+" let g:zettel_options = [{"template" :  "~/path/to/mytemplate.tpl"}]
+" <
+" Sample template: >
+"    = %title =
+"    %backlink
+"    ----
+
+"    %footer
+ " text from the parent note footer. Footer is separated from  the
+ " main text by horizontal rule  (----). It can contain some information
+ " shared by notes. For example notes about publication can share citation of
+ " that publication.
 " }}}
 " taboo {{{
 let g:taboo_tab_format=" %N:%f %m"
@@ -771,6 +799,7 @@ autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 e
 autocmd Bufread,BufNewFile *.spv set filetype=php
 autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
 autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType vimwiki setlocal foldlevel=99
 au Bufread *  if expand('%') =~ "zathurarc" | set syntax=vim | endif
 " Start NERDTree. If a file is specified, move the cursor to its window.
 autocmd StdinReadPre * let s:std_in=1
