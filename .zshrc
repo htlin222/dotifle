@@ -101,7 +101,6 @@ alias pip3="pip"
 alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
 alias vimdiff='nvim -d'
-alias study='nvim ~/Medical/index.md'
 alias abbr='nvim ~/.dotfile/.config/nvim/abbr.vimrc'
 # }}}
 export EDITOR="/usr/local/bin/nvim"
@@ -123,6 +122,10 @@ function vimwiki () {
     else
         echo 'Usage: vimwiki [git] [args ...]'
     fi
+}
+function study(){
+  cd ~/Medical/
+  nvim index.md
 }
 # }}}
 
