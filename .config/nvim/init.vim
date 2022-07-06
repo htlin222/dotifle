@@ -114,6 +114,8 @@ nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
+" replace space to _
+xnoremap <silent><leader>_ :s/\%V /_/g<CR>
 " nnoremap <leader>z <C-z>
 " leave terminal mode
 tnoremap <Esc><Esc> <C-\><C-n>
@@ -389,6 +391,7 @@ augroup filetype_vimwiki
   autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
   autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
   autocmd FileType vimwiki nnoremap <leader>wb :ZettelBackLinks<CR>
+  autocmd FileType vimwiki xnoremap <silent><leader>w :call ReplaceSpaceAndCreateWiki()<CR>
 augroup END
 let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
@@ -398,6 +401,10 @@ let g:zettel_backlinks_title_level = 3
 let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
 let g:zettel_options = [{"template" : "~/.dotfile/.config/nvim/snippets/template.tpl" , "disable_front_matter": 1 }]
+function! ReplaceSpaceAndCreateWiki()
+    exec ':s/\%V /_/g'
+    exec ':VimwikiFollowLink'
+endfunction
 " Sample template: >
 "    = %title =
 "    %backlink
@@ -692,9 +699,9 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 nnoremap <silent><leader>p :Files %:p:h<CR>
 tnoremap <silent><leader>p <Esc>
-nnoremap ,fl :Lines
+nnoremap ,fl :Lines<CR>
 nnoremap ,fb :BLines
-nnoremap ,ff :Files
+nnoremap ,ff :Files<CR>
 nnoremap ,fg :GFiles
 nnoremap ,f? :GFiles?
 nnoremap ,ft :Tags<cr>
@@ -909,7 +916,7 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-map <leader>rn :call RenameFile()
+noremap <leader>rn :call RenameFile()
 " }}}
 " Paste Imgur link {{{
 function! ImgurLink()
@@ -918,6 +925,6 @@ function! ImgurLink()
 endfunction
 
 command! Img :call ImgurLink()
-map <leader><leader>p :call ImgurLink()<CR>
+noremap <leader><leader>p :call ImgurLink()<CR>
 " }}}
 " }}}
