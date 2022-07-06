@@ -396,7 +396,7 @@ let g:zettel_backlinks_title = "Backlinks"
 let g:zettel_backlinks_title_level = 3
 let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
-let g:zettel_options = [{"template" :  "~/.dotfile/.config/nvim/snippets/mytemplate.tpl"}]
+let g:zettel_options = [{"template" :  "~/.dotfile/.config/nvim/snippets/template.tpl"}]
 " Sample template: >
 "    = %title =
 "    %backlink
