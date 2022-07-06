@@ -127,10 +127,10 @@ function study(){
   cd ~/Medical/
   nvim index.md
 }
-function sync(){
+function syncdot(){
   cd ~/.dotfile/
   git pull
-  nvim +PlugInstall +PlugClean! "+source $MYVIMRC" +qall 
+  nvim +PlugInstall +PlugClean! "+source $MYVIMRC" +qall
 }
 # }}}
 
