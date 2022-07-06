@@ -1,5 +1,5 @@
-## %title
-Backlink: %backlink
 
+----
+來自: %backlink
 ----
 %footer

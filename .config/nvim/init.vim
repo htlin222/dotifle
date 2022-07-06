@@ -384,19 +384,20 @@ let g:zettel_default_mappings = 0
 " This is basically the same as the default configuration
 augroup filetype_vimwiki
   autocmd!
-  autocmd FileType vimwiki imap <silent> [[ [[<esc><Plug>ZettelSearchMap
-  autocmd FileType vimwiki nmap T <Plug>ZettelYankNameMap
-  autocmd FileType vimwiki xmap z <Plug>ZettelNewSelectedMap
-  autocmd FileType vimwiki nmap gZ <Plug>ZettelReplaceFileWithLink
+  autocmd FileType vimwiki inoremap <silent> [[ [[<esc><Plug>ZettelSearchMap
+  autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
+  autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
+  autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
+  autocmd FileType vimwiki nnoremap <leader>wb :ZettelBackLinks<CR>
 augroup END
-let g:zettel_format = "%y%m%d-%H%M-%title"
+let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
 let g:zettel_generated_index_title_level = 2
-let g:zettel_backlinks_title = "Backlinks"
+let g:zettel_backlinks_title = "相關連結："
 let g:zettel_backlinks_title_level = 3
 let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
-let g:zettel_options = [{"template" :  "~/.dotfile/.config/nvim/snippets/template.tpl"}]
+let g:zettel_options = [{"template" : "~/.dotfile/.config/nvim/snippets/template.tpl" , "disable_front_matter": 1 }]
 " Sample template: >
 "    = %title =
 "    %backlink
