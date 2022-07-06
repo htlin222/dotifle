@@ -128,6 +128,7 @@ nnoremap <leader>; <C-W>s
 nnoremap <leader>` <C-W>v
 " open newtrw at the left
 nnoremap <leader>t :Lexplore<cr>
+nnoremap <silent><leader>cf :let @*=expand("%")<CR>
 " mapping for _vimrc {{{
 " inoremap jk <esc>
 " }}}
@@ -141,8 +142,10 @@ nnoremap <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc
 " switch input method require im-select
 " brew tap daipeihust/tap && brew install im-select
 " vimwiki map install vimwiki first {{{
-nnoremap ,vs <Plug>VimwikiVSplitLink<CR>
-nnoremap ,t :VimwikiTabnewLink<CR>
+nnoremap <leader>wv <Plug>VimwikiVSplitLink<CR>
+nnoremap <leader>wnt <Plug>VimwikiTabnewLink<CR>
+nnoremap <leader>wnz <Plug>ZettelNew<CR>
+nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
 " }}}
 " to toggle plugin via leader
 " toggle Vista
@@ -213,6 +216,7 @@ Plug 'easymotion/vim-easymotion'
 " others----
 Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
+Plug 'https://github.com/alok/notational-fzf-vim'  " :NV
 Plug 'itchyny/vim-cursorword'
 Plug 'Yggdroot/indentLine'
 Plug 'phaazon/hop.nvim'
@@ -220,6 +224,8 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'glts/vim-textobj-comment'
 Plug 'junegunn/vim-emoji' "Emoji
+Plug 'embear/vim-localvimrc'
+Plug 'jdhao/better-escape.vim'
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/vim-lsp'
@@ -258,6 +264,14 @@ let g:netrw_liststyle = 3
 let ghregex='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_list_hide=ghregex
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+" }}}
+" better-escape {{{
+" use jj to escape insert mode.
+let g:better_escape_shortcut = 'jj'
+" set time interval to 200 ms
+let g:better_escape_interval = 200
+" enable debug (some message will be shown)
+" let g:better_escape_debug = 1
 " }}}
 " " NERDTree {{{
 " nnoremap <leader>t :NERDTreeToggle %<CR>
@@ -350,11 +364,12 @@ let g:gitgutter_sign_removed = '㊀'
 " let g:gitgutter_sign_modified_removed = 'ww'
 " }}}
 " vimwiki {{{
-let wiki_1 = {'path': '~/Medical',
+let wiki_1 = {'path': '~/Medical', 'name': 'Medical',
                       \ 'syntax': 'markdown', 'ext': '.md'}
-let wiki_2 = {'path': '~/vimwiki/',
+let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
                       \ 'syntax': 'markdown', 'ext': '.md'}
 let g:vimwiki_list = [wiki_1,wiki_2]
+let g:nv_search_paths = ['~/Medical/','~/vimwiki']
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
 let g:vimwiki_folding = 'expr'
