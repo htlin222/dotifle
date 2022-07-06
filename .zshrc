@@ -127,6 +127,11 @@ function study(){
   cd ~/Medical/
   nvim index.md
 }
+function sync(){
+  cd ~/.dotfile/
+  git pull
+  nvim +PlugInstall +PlugClean! "+source $MYVIMRC" +qall 
+}
 # }}}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

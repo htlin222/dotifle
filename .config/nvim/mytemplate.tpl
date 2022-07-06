@@ -1,0 +1,6 @@
+## %title
+
+%backlink
+%date
+---
+%footer

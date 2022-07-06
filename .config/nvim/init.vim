@@ -105,7 +105,7 @@ inoremap <C-e> <C-o>a
 let mapleader=' '
 " save and quit
 nnoremap <leader>wq :wqa<CR>
-nnoremap <leader> :w<CR>
+" nnoremap <leader> :w<CR>
 nnoremap <leader>x :q<CR>
 " escape to the console
 nnoremap <leader>\ <C-z>
@@ -129,6 +129,8 @@ nnoremap <leader>` <C-W>v
 " open newtrw at the left
 nnoremap <leader>t :Lexplore<cr>
 nnoremap <silent><leader>cf :let @*=expand("%")<CR>
+nmap <silent> <Leader>s <Plug>SearchNormal
+vmap <silent> <Leader>s <Plug>SearchVisual
 " mapping for _vimrc {{{
 " inoremap jk <esc>
 " }}}
@@ -209,6 +211,7 @@ Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
+Plug 'voldikss/vim-browser-search'
 " commands----
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } } | Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vista.vim'
@@ -226,6 +229,7 @@ Plug 'glts/vim-textobj-comment'
 Plug 'junegunn/vim-emoji' "Emoji
 Plug 'embear/vim-localvimrc'
 Plug 'jdhao/better-escape.vim'
+" Plug 'vim-pandoc/vim-pandoc'
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
 " Plug 'prabirshrestha/vim-lsp'
@@ -243,7 +247,6 @@ Plug 'jdhao/better-escape.vim'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
-" Plug 'vim-pandoc/vim-pandoc'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 " }}}
 call plug#end()
@@ -373,6 +376,7 @@ let g:nv_search_paths = ['~/Medical/','~/vimwiki']
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
 let g:vimwiki_folding = 'expr'
+let g:vimwiki_auto_header=1
 let g:vimwiki_global_ext=0
 let g:vimwiki_sync_branch = "main"
 let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
@@ -392,8 +396,7 @@ let g:zettel_backlinks_title = "Backlinks"
 let g:zettel_backlinks_title_level = 3
 let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
-" let g:zettel_options = [{"template" :  "~/path/to/mytemplate.tpl"}]
-" <
+let g:zettel_options = [{"template" :  "~/.dotfile/.config/nvim/snippets/mytemplate.tpl"}]
 " Sample template: >
 "    = %title =
 "    %backlink
