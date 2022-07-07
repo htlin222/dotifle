@@ -369,12 +369,12 @@ let g:gitgutter_sign_removed = '㊀'
 " let g:gitgutter_sign_modified_removed = 'ww'
 " }}}
 " vimwiki {{{
-let wiki_1 = {'path': '~/Medical', 'name': 'Medical',
+let wiki_1 = {'path': '~/Medical/', 'name': 'Medical',
                       \ 'syntax': 'markdown', 'ext': '.md'}
-let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
+let wiki_2 = {'path': '~/vimwiki/docs/', 'name': 'Tech',
                       \ 'syntax': 'markdown', 'ext': '.md'}
 let g:vimwiki_list = [wiki_1,wiki_2]
-let g:nv_search_paths = ['~/Medical/','~/vimwiki']
+let g:nv_search_paths = ['~/Medical/','~/vimwiki/docs/']
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
 let g:vimwiki_folding = 'expr'

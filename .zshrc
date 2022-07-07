@@ -102,10 +102,12 @@ alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
 alias vimdiff='nvim -d'
 alias abbr='nvim ~/.dotfile/.config/nvim/abbr.vimrc'
+alias vimfzf='nvim $(fzf)'
 # }}}
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 # My persional function {{{
 function lazygit() {
     git add .
