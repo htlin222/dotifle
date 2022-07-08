@@ -10,6 +10,7 @@ def gen_header(snip):
 
 	snip.expand_anon(line_content)
 endglobal
+
 snippet flow "mermaid flowchart"
 \`\`\`mermaid
 %%{init: {'securityLevel': 'loose', 'theme':'dark'}}%%
@@ -21,18 +22,6 @@ flowchart TD
     A($1)
     click B "$2" "$3" _blank
 \`\`\`
-endsnippet
-
-snippet "(k1|kbd)" "HTML kbd tag" rw
-<kbd>${1:KEY}</kbd>$0
-endsnippet
-
-snippet k2 "Two key strokes shortcut"
-<kbd>${1:KEY}</kbd> + <kbd>${2:KEY}</kbd>
-endsnippet
-
-snippet k3 "Three key strokes shortcut"
-<kbd>${1:KEY}</kbd> + <kbd>${2:KEY}</kbd> + <kbd>${3:KEY}</kbd>
 endsnippet
 
 snippet meta "Markdown front matter (YAML format)" b
