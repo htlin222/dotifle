@@ -120,9 +120,6 @@ matches:
     trigger: "lzg"
     replace: "lazygit \"$|$\""
   -
-    trigger: "zfzf"
-    replace: "vim $(fzf)"
-  -
     trigger: "newtri"
     replace: "\"$|$\",\"{{clipboard}}\""
     vars:
