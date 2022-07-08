@@ -1,1 +1,10 @@
-{}
+{
+  "extension": {
+    "coc-word": {
+      "disabled": true
+    },
+    "coc-zi": {
+      "disabled": true
+    }
+  }
+}

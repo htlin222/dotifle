@@ -9,7 +9,6 @@
     "coc-ultisnips": ">=1.2.3",
     "coc-vimlsp": ">=0.12.8",
     "coc-word": ">=1.2.2",
-    "coc-yaml": ">=1.7.5",
-    "coc-zi": ">=1.1.2"
+    "coc-yaml": ">=1.7.5"
   }
 }

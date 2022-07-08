@@ -166,13 +166,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "coc， for autocomplete
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'preservim/vim-markdown'
+Plug 'tpope/vim-repeat'
 Plug 'scrooloose/syntastic'
 " completion----
-Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sirver/ultisnips'
+Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'
 " code display----
 Plug 'lfv89/vim-interestingwords'
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
@@ -186,6 +185,9 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
 Plug 'guns/xterm-color-table.vim'
 Plug 'kevinhwang91/rnvimr'
+Plug 'kqito/vim-easy-replace'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -199,6 +201,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
 Plug 'IMOKURI/line-number-interval.nvim'
+Plug 'gelguy/wilder.nvim'
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
@@ -215,20 +218,18 @@ Plug 'michal-h21/vim-zettel'
 Plug 'https://github.com/alok/notational-fzf-vim'  " :NV
 Plug 'itchyny/vim-cursorword'
 Plug 'Yggdroot/indentLine'
-Plug 'phaazon/hop.nvim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'kana/vim-textobj-user'
 Plug 'glts/vim-textobj-comment'
 Plug 'junegunn/vim-emoji' "Emoji
 Plug 'embear/vim-localvimrc'
 Plug 'jdhao/better-escape.vim'
-" Plug 'vim-pandoc/vim-pandoc'
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
-" Plug 'prabirshrestha/vim-lsp'
 " Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
+" Plug 'phaazon/hop.nvim'
 " Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 " }}}
@@ -236,10 +237,12 @@ Plug 'jdhao/better-escape.vim'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'skywind3000/vim-quickui' "Display a dropdown menubar at top of the screen
 " Plug 'aserebryakov/vim-todo-lists'
+" Plug 'Shougo/deoplete.nvim'
 " Plug 'lyokha/vim-xkbswitch'
 " Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'masukomi/vim-markdown-folding'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'vim-pandoc/vim-pandoc'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 " }}}
 call plug#end()
@@ -247,12 +250,13 @@ call plug#end()
 "
 " Part.6 ---plugin settings {{{
 colorscheme monokai
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:startify_custom_header = startify#center(['Why does the lizard stick his tongue out? The lizard sticks its tongue out because that is the way its listening and looking and tasting its environment. It is its means of appreciating what is in front of it. 🦎'])
 set rtp+=/usr/local/opt/fzf
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+"
 " newtrw settings: {{{
 let g:netrw_winsize = 20
 let g:netrw_banner = 0
@@ -268,6 +272,48 @@ let g:better_escape_shortcut = 'jj'
 let g:better_escape_interval = 200
 " enable debug (some message will be shown)
 " let g:better_escape_debug = 1
+" }}}
+" wilder {{{
+" Default keys
+call wilder#setup({
+      \ 'modes': [':', '/', '?'],
+      \ 'next_key': '<Tab>',
+      \ 'previous_key': '<S-Tab>',
+      \ 'accept_key': '<Down>',
+      \ 'reject_key': '<Up>',
+      \ })
+" 'highlighter' : applies highlighting to the candidates
+call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ 'left': [
+      \   ' ', wilder#popupmenu_devicons(),
+      \ ],
+      \ 'right': [
+      \   ' ', wilder#popupmenu_scrollbar(),
+      \ ],
+      \ 'min_width': '20%',
+      \ 'min_height': '10%',
+      \ 'border': 'rounded',
+      \ 'reverse': 1,
+      \ })))
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#python_file_finder_pipeline({
+      \       'file_command': ['rg', '--files'],
+      \       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
+      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
+      \     }),
+      \     wilder#cmdline_pipeline({
+      \       'language': 'python',
+      \       'fuzzy': 1,
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': wilder#python_fuzzy_pattern(),
+      \       'sorter': wilder#python_difflib_sorter(),
+      \       'engine': 're',
+      \     }),
+      \   ),
+      \ ])
 " }}}
 " " NERDTree {{{
 " nnoremap <leader>t :NERDTreeToggle %<CR>
@@ -422,6 +468,17 @@ let g:taboo_close_tab_label="[❌]"
 let g:indent_guides_enable_on_vim_startup = 1 "讓預設的indent guides 是打開的"
 let g:indentLine_concealcursor = "n"
 let g:indentLine_setConceal = 0
+" }}}
+" ultisnips {{{
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "mysnippets"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets ="<c-tab>"
+"设置向后跳转键
+" let g:UltiSnipsJumpForwardTrigger = '<tab>'
+"设置向前跳转键
+" let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
 "  vim-markdown-preview {{{
 " " set to 1, nvim will open the preview window after entering the markdown buffer
@@ -598,8 +655,8 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 " }}}
 " rnvimr {{{
-nnoremap <silent> <leader>r :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
-tnoremap <silent> <leader>r <C-\><C-n>:RnvimrToggle<CR>
+nnoremap <silent> <leader>rn :RnvimrToggle<CR><C-\><C-n>:RnvimrResize 0<CR>
+tnoremap <silent> <leader>rn <C-\><C-n>:RnvimrToggle<CR>
 " let g:rnvimr_shadow_winblend = 70
 " let g:rnvimr_ranger_cmd = ['ranger', '--cmd=set draw_borders both']
 let g:rnvimr_ex_enable = 1
@@ -904,7 +961,7 @@ au BufWinEnter * :set shm+=I
 "
 " Part.9 ---user commond! must in uppercase {{{
 " Rename File {{{
-function! RenameFile()
+function! Rename()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
     if new_name != '' && new_name != old_name
@@ -913,7 +970,6 @@ function! RenameFile()
         redraw!
     endif
 endfunction
-noremap <leader>rn :call RenameFile()
 " }}}
 " Paste Imgur link {{{
 function! ImgurLink()
@@ -925,3 +981,4 @@ noremap <leader><leader>p :call ImgurLink()<CR>
 
 " }}}
 " }}}
+
