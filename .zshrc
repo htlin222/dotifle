@@ -124,7 +124,7 @@ function vimwiki () {
     fi
 }
 function study(){
-  cd ~/Medical/
+  cd ~/Documents/Medical/
   nvim index.md
 }
 function syncdot(){
