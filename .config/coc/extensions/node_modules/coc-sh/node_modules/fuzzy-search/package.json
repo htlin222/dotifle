@@ -1,0 +1,38 @@
+{
+  "name": "fuzzy-search",
+  "version": "3.2.1",
+  "description": "Simple fuzzy search",
+  "main": "./dist/FuzzySearch.js",
+  "module": "src/FuzzySearch.js",
+  "devDependencies": {
+    "@babel/register": "^7.6.2",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.6.0",
+    "jasmine": "^3.5.0",
+    "laravel-mix": "^5.0.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js && rm mix-manifest.json",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js && rm mix-manifest.json",
+    "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js && rm mix-manifest.json",
+    "test": "jasmine",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wouter2203/fuzzy-search.git"
+  },
+  "keywords": [
+    "fuzzy",
+    "search",
+    "javascript"
+  ],
+  "author": "Wouter Rutgers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wouter2203/fuzzy-search/issues"
+  },
+  "homepage": "https://github.com/wouter2203/fuzzy-search#readme",
+  "tonicExampleFilename": "example.js"
+}

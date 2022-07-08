@@ -114,8 +114,6 @@ nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
 nnoremap <leader>hh :vertical resize -10<CR>
 nnoremap <leader>ll :vertical resize +10<CR>
-" replace space to _
-xnoremap <silent><leader>_ :s/\%V /_/g<CR>
 " nnoremap <leader>z <C-z>
 " leave terminal mode
 tnoremap <Esc><Esc> <C-\><C-n>
@@ -128,15 +126,14 @@ tnoremap <Esc><Esc> <C-\><C-n>
 nnoremap <leader>; <C-W>s
 " split horizontal
 nnoremap <leader>` <C-W>v
-" open newtrw at the left
+" open newtrw at the
 nnoremap <leader>t :Lexplore<cr>
-nnoremap <silent><leader>cf :let @*=expand("%")<CR>
 nmap <silent> <Leader>s <Plug>SearchNormal
 vmap <silent> <Leader>s <Plug>SearchVisual
 " mapping for _vimrc {{{
 " inoremap jk <esc>
 " }}}
-"
+" test
 " open init.vim
 nnoremap <leader>,, :silent e ~/.config/nvim/init.vim<CR>
 " reload init.vim
@@ -145,12 +142,6 @@ nnoremap <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc
 " plugin dependent mapping================================
 " switch input method require im-select
 " brew tap daipeihust/tap && brew install im-select
-" vimwiki map install vimwiki first {{{
-nnoremap <leader>wv <Plug>VimwikiVSplitLink<CR>
-nnoremap <leader>wnt <Plug>VimwikiTabnewLink<CR>
-nnoremap <leader>wnz <Plug>ZettelNew<CR>
-nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
-" }}}
 " to toggle plugin via leader
 " toggle Vista
 nnoremap <leader><leader>v :w<CR>:Vista!!<CR>
@@ -385,13 +376,18 @@ let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
 let g:zettel_default_mappings = 0
 " This is basically the same as the default configuration
 augroup filetype_vimwiki
-  autocmd!
-  autocmd FileType vimwiki inoremap <silent> [[ [[<esc><Plug>ZettelSearchMap
-  autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
-  autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
-  autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
-  autocmd FileType vimwiki nnoremap <leader>wb :ZettelBackLinks<CR>
-  autocmd FileType vimwiki xnoremap <silent><leader>w :call ReplaceSpaceAndCreateWiki()<CR>
+    autocmd!
+    autocmd FileType vimwiki inoremap <silent> [[ [[<esc><Plug>ZettelSearchMap
+    autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
+    autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
+    autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
+    autocmd FileType vimwiki nnoremap <leader>wb :ZettelBackLinks<CR>
+    autocmd FileType vimwiki nnoremap <leader>wv <Plug>VimwikiVSplitLink<CR>
+    autocmd FileType vimwiki nnoremap <leader>wnt <Plug>VimwikiTabnewLink<CR>
+    autocmd FileType vimwiki nnoremap <leader>wnz <Plug>ZettelNew<CR>
+    autocmd FileType vimwiki nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
+    autocmd FileType vimwiki nnoremap <silent><leader>wf e:call AppendWithFileName()<CR>p
+    autocmd FileType vimwiki xnoremap <silent><leader>w :call ReplaceSpace()<CR>
 augroup END
 let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
@@ -401,15 +397,16 @@ let g:zettel_backlinks_title_level = 3
 let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
 let g:zettel_options = [{"template" : "~/.dotfile/.config/nvim/snippets/template.tpl" , "disable_front_matter": 1 }]
-function! ReplaceSpaceAndCreateWiki()
-    exec ':s/\%V /_/g'
-    exec ':VimwikiFollowLink'
+function! ReplaceSpace()
+    exec ':s/\%V\W/_/g'
+endfunction
+function! AppendWithFileName()
+    let @*=expand('_')
+    let @+ .=expand('%:t:r')
 endfunction
 " Sample template: >
 "    = %title =
 "    %backlink
-"    ----
-
 "    %footer
  " text from the parent note footer. Footer is separated from  the
  " main text by horizontal rule  (----). It can contain some information
@@ -923,8 +920,8 @@ function! ImgurLink()
     exec ':silent !python ~/.dotfile/pyscripts/imgurVim.py'
     exec ':silent pu'
 endfunction
-
 command! Img :call ImgurLink()
 noremap <leader><leader>p :call ImgurLink()<CR>
+
 " }}}
 " }}}
