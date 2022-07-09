@@ -5,50 +5,41 @@ filetype off
 " }}}
 "
 " Part.2 ---set the environment {{{
-set number "show the line number"
-set shm+=I
+set autoindent autoread autowriteall
 set clipboard=unnamed "link the system clipboard to the vim clipboard "
-set foldenable "default: manual, see the current setting by  :set foldmethod?
-set relativenumber
-set autoindent
-set nobackup " backup file is immediately deleted upon successfully writing the original file.
-set nowritebackup
-set noswapfile
-set history=100
-set showcmd
-set noshowmode
-set incsearch
-set modifiable
-set autowriteall
-set smartcase
-set ignorecase
-set incsearch
-set hidden
-set timeout timeoutlen=500 ttimeoutlen=100
-set shiftwidth=4
-set tabstop=4
-set smarttab
-set softtabstop=4
-set mouse=a " support mouse
-set splitbelow
-set splitright
-set cursorcolumn
-set cursorline
-highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
-highlight SignColumn guibg=darkgrey
-highlight clear SignColumn
-set autoread
-set visualbell
-set wildmenu
-set encoding=UTF-8
-set showmatch
+set cmdheight=2
 set completefunc=emoji#complete
 set completeopt-=preview " For No Previews
 set concealcursor-=n " show concealed curse when cursor move to the line
 set conceallevel=2
+set cursorcolumn cursorline
+set encoding=UTF-8
+set foldenable "default: manual, see the current setting by  :set foldmethod?
+set hidden
+set history=100
+set ignorecase
+set incsearch
+set modifiable
+set mouse=a " support mouse
+set nobackup " backup file is immediately deleted upon successfully writing the original file.
+set noshowmode noswapfile nowritebackup
+set number "show the line number"
+set relativenumber
+set shiftround shiftwidth=4
+set shm+=I
 set shortmess=at
-set cmdheight=2
+set showcmd showmatch
+set smartcase smarttab
+set softtabstop=4
+set splitbelow splitright
+set tabstop=4
+set timeout timeoutlen=500 ttimeoutlen=100
+set visualbell
+set wildmenu
+highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+highlight SignColumn guibg=darkgrey
+highlight clear SignColumn
 filetype plugin indent on
 syntax on
 " }}}
@@ -82,13 +73,10 @@ nnoremap a zza
 nnoremap A zzA
 nnoremap o zzo
 nnoremap O zzO
-" make the indent short
-nnoremap > >>
-nnoremap < <<
-" clear the search result by ctrl+K
+" clear the search result by ctrl+K 96
 nnoremap <silent>? :set hls!<CR>
 " text object seletion
-nnoremap \w yiw
+nnoremap \ dd
 nnoremap ci( cigg
 nnoremap vi( vigg
 nnoremap di( digg
@@ -98,6 +86,7 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
+inoremap <C-d> <C-O>D
 " jump out of the parenthesis
 inoremap <C-e> <C-o>a
 " Leader related
@@ -128,16 +117,19 @@ nnoremap <leader>; <C-W>s
 nnoremap <leader>` <C-W>v
 " open newtrw at the
 nnoremap <leader>t :Lexplore<cr>
-nmap <silent> <Leader>s <Plug>SearchNormal
-vmap <silent> <Leader>s <Plug>SearchVisual
+" surround the word in double quotes
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <silent> <Leader>s <Plug>SearchNormal
+vnoremap <silent> <Leader>s <Plug>SearchVisual
 " mapping for _vimrc {{{
 " inoremap jk <esc>
 " }}}
 " test
 " open init.vim
 nnoremap <leader>,, :silent e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " reload init.vim
-nnoremap <leader>.. :w<CR>:silent source ~/.config/nvim/init.vim<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
+nnoremap <leader>.. :w<CR>:silent source $MYVIMRC<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
 "
 " plugin dependent mapping================================
 " switch input method require im-select
@@ -186,8 +178,6 @@ Plug 'wellle/targets.vim'
 Plug 'guns/xterm-color-table.vim'
 Plug 'kevinhwang91/rnvimr'
 Plug 'kqito/vim-easy-replace'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 " {{{ require ctags:
 " brew install ctags-exuberant
 " aud find it's installed in /usr/local/Cellar/ctags/5.8_1
@@ -200,8 +190,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'petertriho/nvim-scrollbar'
 Plug 'gcmt/taboo.vim'
-Plug 'IMOKURI/line-number-interval.nvim'
-Plug 'gelguy/wilder.nvim'
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'crusoexia/vim-monokai' "monokai colorschemes
@@ -217,23 +205,39 @@ Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
 Plug 'https://github.com/alok/notational-fzf-vim'  " :NV
 Plug 'itchyny/vim-cursorword'
-Plug 'Yggdroot/indentLine'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'kana/vim-textobj-user'
-Plug 'glts/vim-textobj-comment'
+Plug 'Yggdroot/indentLine' | Plug 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user' | Plug 'glts/vim-textobj-comment'
 Plug 'junegunn/vim-emoji' "Emoji
 Plug 'embear/vim-localvimrc'
 Plug 'jdhao/better-escape.vim'
+" wilder.nvim
+" {{{
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+" }}}
+" ---END of ACTIVE Plug---
 " Plug to be installed (currently dono how to use it) {{{
 " Plug 'w0rp/ale'
-" Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
+" }}}
+" ---Deactivated Plug {{{
+" Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
 " Plug 'phaazon/hop.nvim'
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-" }}}
-" ---Deactivated Plug {{{
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'skywind3000/vim-quickui' "Display a dropdown menubar at top of the screen
 " Plug 'aserebryakov/vim-todo-lists'
@@ -244,13 +248,13 @@ Plug 'jdhao/better-escape.vim'
 " Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 " Plug 'vim-pandoc/vim-pandoc'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'https://github.com/preservim/nerdtree', { 'on':  'NERDTreeToggle' } " NerdTree
 " }}}
 call plug#end()
 " }}}
 "
 " Part.6 ---plugin settings {{{
 colorscheme monokai
-" let g:deoplete#enable_at_startup = 1
 let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:startify_custom_header = startify#center(['Why does the lizard stick his tongue out? The lizard sticks its tongue out because that is the way its listening and looking and tasting its environment. It is its means of appreciating what is in front of it. 🦎'])
 set rtp+=/usr/local/opt/fzf
@@ -480,106 +484,6 @@ let g:UltiSnipsListSnippets ="<c-tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
-"  vim-markdown-preview {{{
-" " set to 1, nvim will open the preview window after entering the markdown buffer
-" " default: 0
-" let g:mkdp_auto_start = 0
-
-" " set to 1, the nvim will auto close current preview window when change
-" " from markdown buffer to another buffer
-" " default: 1
-" let g:mkdp_auto_close = 0
-
-" " set to 1, the vim will refresh markdown when save the buffer or
-" " leave from insert mode, default 0 is auto refresh markdown as you edit or
-" " move the cursor
-" " default: 0
-" let g:mkdp_refresh_slow = 0
-
-" " set to 1, the MarkdownPreview command can be use for all files,
-" " by default it can be use in markdown file
-" " default: 0
-" let g:mkdp_command_for_global = 0
-
-" " set to 1, preview server available to others in your network
-" " by default, the server listens on localhost (127.0.0.1)
-" " default: 0
-" let g:mkdp_open_to_the_world = 0
-
-" " use custom IP to open preview page
-" " useful when you work in remote vim and preview on local browser
-" " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
-" " default empty
-" let g:mkdp_open_ip = ''
-
-" " specify browser to open preview page
-" " for path with space
-" " valid: `/path/with\ space/xxx`
-" " invalid: `/path/with\\ space/xxx`
-" " default: ''
-" let g:mkdp_browser = ''
-
-" " set to 1, echo preview page url in command line when open preview page
-" " default is 0
-" let g:mkdp_echo_preview_url = 1
-
-" " a custom vim function name to open preview page
-" " this function will receive url as param
-" " default is empty
-" let g:mkdp_browserfunc = ''
-
-" " options for markdown render
-" " mkit: markdown-it options for render
-" " katex: katex options for math
-" " uml: markdown-it-plantuml options
-" " maid: mermaid options
-" " disable_sync_scroll: if disable sync scroll, default 0
-" " sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
-" "   middle: mean the cursor position alway show at the middle of the preview page
-" "   top: mean the vim top viewport alway show at the top of the preview page
-" "   relative: mean the cursor position alway show at the relative positon of the preview page
-" " hide_yaml_meta: if hide yaml metadata, default is 1
-" " sequence_diagrams: js-sequence-diagrams options
-" " content_editable: if enable content editable for preview page, default: v:false
-" " disable_filename: if disable filename header for preview page, default: 0
-" let g:mkdp_preview_options = {
-"     \ 'mkit': {},
-"     \ 'katex': {},
-"     \ 'uml': {},
-"     \ 'maid': {},
-"     \ 'disable_sync_scroll': 0,
-"     \ 'sync_scroll_type': 'middle',
-"     \ 'hide_yaml_meta': 1,
-"     \ 'sequence_diagrams': {},
-"     \ 'flowchart_diagrams': {},
-"     \ 'content_editable': v:false,
-"     \ 'disable_filename': 0,
-"     \ 'toc': {}
-"     \ }
-
-" " use a custom markdown style must be absolute path
-" " like '/Users/username/markdown.css' or expand('~/markdown.css')
-" let g:mkdp_markdown_css = ''
-
-" " use a custom highlight style must absolute path
-" " like '/Users/username/highlight.css' or expand('~/highlight.css')
-" let g:mkdp_highlight_css = ''
-
-" " use a custom port to start server or empty for random
-" let g:mkdp_port = ''
-
-" " preview page title
-" " ${name} will be replace with the file name
-" let g:mkdp_page_title = '「${name}」'
-
-" " recognized filetypes
-" " these filetypes will have MarkdownPreview... commands
-" let g:mkdp_filetypes = ['markdown']
-
-" " set default theme (dark or light)
-" " By default the theme is define according to the preferences of the system
-" let g:mkdp_theme = 'dark'
-" " }}}
 " syntastic {{{
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
@@ -631,11 +535,6 @@ autocmd BufEnter * :call BookmarkMapKeys()
 autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
 " }}}
 " }}}
-" " which-key {{{
-" " let g:maplocalleader = ','
-" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-" " }}}
 " easymotion {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -773,12 +672,6 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 let $FZF_DEFAULT_OPTS="--bind \"ctrl-n:preview-down,ctrl-p:preview-up\""
 " }}}
-" line-number-interval
-" {{{
-let g:line_number_interval_enable_at_startup = 1
-let g:line_number_interval#use_custom = 1
-let g:line_number_interval#custom_interval = [1,2,3,4,5,10,20,30,40,50,60,70,80,90]
-" }}}
 " }}}
 "
 " Part.7 ---let, path, and function {{{
@@ -815,8 +708,8 @@ inoremap <silent><expr> <Tab>
 " :CocInstall coc-snippets
 " :CocCommand snippets.edit... FOR EACH FILE TYPE
 " Use <Tab> and <S-Tab> to navigate the completion list
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " }}}
 " Todo syntax {{{
 
@@ -845,13 +738,29 @@ setlocal cole=1
 " }}}
 "
 " Part.8 ---autocmd {{{
-au BufEnter * set nospell
+augroup default_group
+    autocmd!
+    autocmd BufEnter * set nospell
+    " highlight the yanked text
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 
+    " file formats
+    autocmd Filetype gitcommit setlocal spell textwidth=72
+    autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
+    " autocmd Filetype vimwiki set ft=markdown syntax=markdown
+    autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
+
+    " specify syntax highlighting for specific files
+    autocmd Bufread,BufNewFile *.spv set filetype=php
+    autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
+    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType vimwiki setlocal foldlevel=99
+    autocmd Bufread *  if expand('%') =~ "zathurarc" | set syntax=vim | endif
+    " Start NERDTree. If a file is specified, move the cursor to its window.
+    autocmd StdinReadPre * let s:std_in=1
+augroup END
 " Run code if is python3
 autocmd BufRead,BufNewFile *.py map <leader>r :% w !python3<CR>
-" If you'd like to have it default to Nested folding
-" autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
-" autocmd FileType vimwiki set foldexpr=NestedMarkdownFolds()
 " jump to last cursor
 autocmd BufReadPost
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -866,38 +775,17 @@ fun! StripTrailingWhitespace()
   %s/\s\+$//e
 endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
-" highlight the yanked text
-autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 
-" file formats
-autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
-" autocmd Filetype vimwiki set ft=markdown syntax=markdown
-autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
-
-" specify syntax highlighting for specific files
-autocmd Bufread,BufNewFile *.spv set filetype=php
-autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
-autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType vimwiki setlocal foldlevel=99
-au Bufread *  if expand('%') =~ "zathurarc" | set syntax=vim | endif
-" Start NERDTree. If a file is specified, move the cursor to its window.
-autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * NERDTree | if argc() > 0 || exists("s:std_in") | wincmd p | endif
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-" autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    " \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 " Highlight words to avoid in tech writing
 " http://css-tricks.com/words-avoid-educational-writing/
 highlight TechWordsToAvoid ctermbg=red ctermfg=white
 match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy/
-autocmd BufWinEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd InsertEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd BufWinLeave * call clearmatches()
-
+augroup tech_word_to_avoid
+    autocmd BufWinEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+    autocmd InsertEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+    autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+    autocmd BufWinLeave * call clearmatches()
+augroup END
 " Create a 'scratch buffer' which is a temporary buffer Vim wont ask to save
 " http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
@@ -936,12 +824,13 @@ fun! SetSpellingColors()
   highlight SpellBad cterm=bold ctermfg=white ctermbg=red
   highlight SpellCap cterm=bold ctermfg=red ctermbg=white
 endfun
-autocmd BufWinEnter * call SetSpellingColors()
-autocmd BufNewFile * call SetSpellingColors()
-autocmd BufRead * call SetSpellingColors()
-autocmd InsertEnter * call SetSpellingColors()
-autocmd InsertLeave * call SetSpellingColors()
-
+augroup Group_SetSpellingColors
+    autocmd BufWinEnter * call SetSpellingColors()
+    autocmd BufNewFile * call SetSpellingColors()
+    autocmd BufRead * call SetSpellingColors()
+    autocmd InsertEnter * call SetSpellingColors()
+    autocmd InsertLeave * call SetSpellingColors()
+augroup END
 " Change colourscheme when diffing
 fun! SetDiffColors()
   highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
@@ -955,11 +844,38 @@ nnoremap <silent> <leader>i :silent !im-select com.boshiamy.inputmethod.Boshiamy
 function! ABC()
   exec ':silent !if \! im-select \| grep -q "ABC" ; then im-select com.apple.keylayout.ABC ; fi'
 endfunction
+
 au InsertLeave * :call ABC()
 au BufWinEnter * :set shm+=I
+
+augroup Reload_Vimrc        " Group name.  Always use a unique name!
+    autocmd!                " Clear any preexisting autocommands from this group
+    autocmd! BufWritePost $MYVIMRC source % | echom "Reloaded " . $MYVIMRC | redraw
+    autocmd! BufWritePost $MYGVIMRC if has('gui_running') | so % | echom "Reloaded " . $MYGVIMRC | endif | redraw
+augroup END
+function! UpdateTimestamp ()
+  '[,']s/^This file last updated: \zs.*/\= strftime("%c") /
+endfunction
+
+augroup TimeStamping
+  autocmd!
+  autocmd BufWritePre,FileWritePre,FileAppendPre * :call UpdateTimestamp()
+augroup END
+
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir)
+          \   && (a:force
+          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
+augroup END
 " }}}
 "
-" Part.9 ---user commond! must in uppercase {{{
+" Part.9 ---user commond! MUST IN UPPERCASE {{{
 " Rename File {{{
 function! Rename()
     let old_name = expand('%')
