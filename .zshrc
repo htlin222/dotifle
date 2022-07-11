@@ -96,6 +96,9 @@ source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias vim='nvim'
+alias v='nvim'
+alias vf='nvim $(fzf)'
+alias cf='cd $(find . -type d -print | fzf)'
 alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias pip3="pip"
 alias reload="source ~/.zshrc"
@@ -106,6 +109,15 @@ alias abbr='nvim ~/.dotfile/.config/nvim/abbr.vimrc'
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -l -g ""'
+  export FZF_DEFAULT_OPTS="-m --height 50% --layout=reverse --border --inline-info
+  --preview-window=:hidden
+  --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+  --bind '?:toggle-preview'
+"
+fi
 # My persional function {{{
 function lazygit() {
     git add .

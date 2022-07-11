@@ -1,9 +1,10 @@
-# this is my dotfile
+# my dotfile
 ## Setup:
 clone this repo by
 ```
+cd ~
 git clone https://github.com/htlin222/dotifle.git
 ```
-test
-[TestBacklink](TestBacklink.md)
+## How to 
+[how to set up vim](vim_how_to.md)
 
