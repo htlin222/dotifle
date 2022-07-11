@@ -1,14 +1,11 @@
 " Basic Key Mappings
+" map leader to spacebar
+let mapleader=' '
 " is a source for $HOME/.config/nvim/init.vim
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
 nnoremap <C-h> <C-w><C-h>
-" switch up/down to half page up and down; left/right to next tab
-nnoremap <up> <C-U>zz
-nnoremap <down> <C-D>zz
-nnoremap <left> :N<CR><Esc>zz
-nnoremap <right> :n<CR><Esc>zz
 nnoremap <C-u> <C-u>zz
 nnoremap <C-d> <C-d>zz
 " paste under the current line
@@ -44,15 +41,9 @@ inoremap <C-d> <C-O>D
 " jump out of the parenthesis
 inoremap <C-e> <C-o>a
 " Leader related
-" map leader to spacebar
-let mapleader=' '
-" save and quit
+" save
 nnoremap <leader>w :w<CR>
-nnoremap <silent><leader>. :bp<CR>
-" nnoremap <leader> :w<CR>
 nnoremap <leader>x :x<CR>
-" escape to the console
-nnoremap <leader>\ <C-z>
 " to adjust the window size
 nnoremap <leader>jj <C-w>+
 nnoremap <leader>kk <C-w>-
@@ -93,14 +84,11 @@ inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
 " Increment && Decrement
-noremap + <C-a>
-" noremap _ <C-x>
+nnoremap + <C-a>
+nnoremap _ <C-x>
 
 " Figlet
 " map fg :r !figlet
-
-" Folding
-" noremap <C-o> za
 
 " Use <space> =- to change tab
 nnoremap tt :tabe<CR>
@@ -109,7 +97,6 @@ nnoremap <LEADER>= :tabnext<CR>
 
 " TAB in general mode will move to text buffer
 nnoremap <TAB> :bnext<CR>
-" SHIFT-TAB will go back
 nnoremap <S-TAB> :bprevious<CR>
 " <TAB>: completion.
 " inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -185,22 +172,19 @@ nnoremap <leader><leader>u :UndotreeToggle<CR>
 " toggle Goya
 nnoremap <leader>gy :Goyo<CR>
 " === Tabular
-vmap tb :Tabularize /
-
+vnoremap tb :Tabularize /
 
 " === Floaterm
 " Terminal mode binding
 " tnoremap <silent> Q <C-\><C-N>:q<CR>
+
+" === Minimap
+nnoremap <silent> <LEADER>m :MinimapToggle<CR>
+" === Lazygit
+noremap <leader><leader>lz :tabe<CR>:term lazygit<CR>
 
 " " Floaterm binding
 " nnoremap <silent> <LEADER>T :FloatermToggle<CR>
 " tnoremap <silent> X <C-\><C-n>:FloatermToggle<CR>
 " nnoremap <silent> <C-x> :FloatermToggle<CR>
 " tnoremap <silent> <C-x> <C-\><C-n>:FloatermToggle<CR>
-
-" === Minimap
-nnoremap <silent> <LEADER>m :MinimapToggle<CR>
-
-" === Lazygit
-noremap <leader><leader>lz :tabe<CR>:term lazygit<CR>
-

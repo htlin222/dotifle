@@ -24,6 +24,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'wellle/targets.vim'
 Plug 'guns/xterm-color-table.vim'
 Plug 'kevinhwang91/rnvimr'
+Plug 'tpope/vim-fugitive' " git support
 Plug 'kqito/vim-easy-replace'
 Plug 'gcmt/wildfire.vim'         " in Visual mode, type k' to select all text in '', or type k) k] k} kp
 " {{{ require ctags:
