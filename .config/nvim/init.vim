@@ -4,9 +4,17 @@
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
 "|_|  |_| |_|   |_| \_|  \_/  |___|_|  |_|_| \_\\____|
 " Author: Lizard 🦎 Hsiehting Lin (@htlin222)
-" (hint:  za to open or close the fold)"
-" Part.1 ---{{{
+" (hint: za to open or close the fold)"
 "
+" INITAL SETUP ---{{{
+"
+" === Auto load for first time uses
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+	silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
 " === Create a _machine_specific.vim file to adjust machine specific stuff, like python interpreter location
 let has_machine_specific_file = 1
 if empty(glob('~/.config/nvim/machine_specific.vim'))
@@ -15,11 +23,7 @@ if empty(glob('~/.config/nvim/machine_specific.vim'))
 endif
 " }}}
 "
-source $HOME/.config/nvim/keys/mappings.vim
-source $HOME/.config/nvim/abbr.vimrc
-source $HOME/.config/nvim/mysnippets.vimrc
-"
-" === plugin settings {{{
+" PLUGIN SETTINGS {{{
 " === vim-plug list
 source $HOME/.config/nvim/plug-configs/plug-list.vim
 " === Undotree
@@ -46,8 +50,10 @@ source $HOME/.config/nvim/plug-configs/lightline.vim
 source $HOME/.config/nvim/plug-configs/vimwiki.vim
 " === wilder
 source $HOME/.config/nvim/plug-configs/wilder.vim
-" === plug-configs/easymotion.vim
+" === easymotion.vim
 source $HOME/.config/nvim/plug-configs/easymotion.vim
+" === plug-configs/todo.vim
+source $HOME/.config/nvim/plug-configs/todo.vim
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -132,39 +138,8 @@ let g:UltiSnipsListSnippets ="<c-tab>"
 " source $HOME/.config/nvim/plug-configs/syntastic.vim
 " }}}
 "
-" Part.7 ---let, path, and function {{{
-" path  {{{
-" 當出現provider問題時，就來這邊加一下
-let g:Tlist_Ctags_Cmd="/usr/local/ctags"
-"}}}
-"
-" Todo syntax {{{
-
-" Vim syntax file
-" Language: Todo
-" Maintainer: Huy Tran
-" Latest Revision: 14 June 2020
-
-if exists("b:current_syntax")
-  finish
-endif
-
-" Custom conceal
-syntax match todoCheckbox "\[\ \]" conceal cchar=
-syntax match todoCheckbox "\[x\]" conceal cchar=
-
-let b:current_syntax = "todo"
-
-hi def link todoCheckbox Todo
-hi Conceal guibg=NONE
-
-setlocal cole=1
-
-
-" }}}
-" }}}
-"
-" Part.8 ---autocmd {{{
+" AUTOCMD {{{
+" default group{{{
 augroup default_group
     autocmd!
     autocmd BufEnter * set nospell
@@ -186,14 +161,16 @@ augroup default_group
     " Start NERDTree. If a file is specified, move the cursor to its window.
     autocmd StdinReadPre * let s:std_in=1
 augroup END
-" Run code if is python3
+"}}}
+" Run code if is python3{{{
 autocmd BufRead,BufNewFile *.py map <leader>r :% w !python3<CR>
 " jump to last cursor
 autocmd BufReadPost
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal g`\"" |
   \ endif
-
+"}}}
+" StripTrailingWhitespace {{{
 fun! StripTrailingWhitespace()
   " don't strip on these filetypes
   if &ft =~ 'markdown'
@@ -202,9 +179,9 @@ fun! StripTrailingWhitespace()
   %s/\s\+$//e
 endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
-
+" }}}
 " Highlight words to avoid in tech writing
-" http://css-tricks.com/words-avoid-educational-writing/
+" http://css-tricks.com/words-avoid-educational-writing/{{{
 highlight TechWordsToAvoid ctermbg=red ctermfg=white
 match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy/
 augroup tech_word_to_avoid
@@ -213,8 +190,9 @@ augroup tech_word_to_avoid
     autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
     autocmd BufWinLeave * call clearmatches()
 augroup END
+"}}}
 " Create a 'scratch buffer' which is a temporary buffer Vim wont ask to save
-" http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
+" http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window{{{
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
@@ -232,20 +210,18 @@ function! s:RunShellCommand(cmdline)
   call setline(3,substitute(getline(2),'.','=','g'))
   execute '$read !'. expanded_cmdline
   setlocal nomodifiable
-  1
 endfunction
+"}}}
 " Close all folds when opening a new buffer
-autocmd BufRead * setlocal foldmethod=marker
-autocmd BufRead * normal zM
-" Rainbow parenthesis always on!
+" Rainbow parenthesis always on!{{{
 if exists(':RainbowParenthesesToggle')
   autocmd VimEnter * RainbowParenthesesToggle
   autocmd Syntax * RainbowParenthesesLoadRound
   autocmd Syntax * RainbowParenthesesLoadSquare
   autocmd Syntax * RainbowParenthesesLoadBraces
 endif
-
-" Reset spelling colours when reading a new buffer
+"}}}
+" Reset spelling colours when reading a new buffer{{{
 " This works around an issue where the colorscheme is changed by .local.vimrc
 fun! SetSpellingColors()
   highlight SpellBad cterm=bold ctermfg=white ctermbg=red
@@ -258,7 +234,8 @@ augroup Group_SetSpellingColors
     autocmd InsertEnter * call SetSpellingColors()
     autocmd InsertLeave * call SetSpellingColors()
 augroup END
-" Change colourscheme when diffing
+"}}}
+" Change colourscheme when diffing{{{
 fun! SetDiffColors()
   highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
   highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
@@ -266,7 +243,8 @@ fun! SetDiffColors()
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
 autocmd FilterWritePre * call SetDiffColors()
-" Imselect
+"}}}
+" Imselect {{{
 nnoremap <silent> <leader>i :silent !im-select com.boshiamy.inputmethod.BoshiamyIMK<CR>:echo "Input: Boshiamy"<CR>zzi
 function! ABC()
   exec ':silent !if \! im-select \| grep -q "ABC" ; then im-select com.apple.keylayout.ABC ; fi'
@@ -274,11 +252,8 @@ endfunction
 
 au InsertLeave * :call ABC()
 au BufWinEnter * :set shm+=I
-
-function! UpdateTimestamp ()
-  '[,']s/^This file last updated: \zs.*/\= strftime("%c") /
-endfunction
-
+"}}}
+" auto mkdir{{{
 augroup vimrc-auto-mkdir
   autocmd!
   autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
@@ -290,9 +265,12 @@ augroup vimrc-auto-mkdir
     endif
   endfunction
 augroup END
+"}}}
+autocmd BufRead * setlocal foldmethod=marker
+autocmd BufRead * normal zM
 " }}}
 "
-" Part.9 ---user commond! MUST IN UPPERCASE {{{
+" COMMOND! MUST IN UPPERCASE {{{
 " Rename File {{{
 function! Rename()
     let old_name = expand('%')
@@ -313,7 +291,13 @@ command! Img :call ImgurLink()
 noremap <leader><leader>p :call ImgurLink()<CR>
 
 " }}}
+function! UpdateTimestamp ()
+  '[,']s/^This file last updated: \zs.*/\= strftime("%c") /
+endfunction
 " }}}
 "
 source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/colorscheme.vim
+source $HOME/.config/nvim/keys/mappings.vim
+source $HOME/.config/nvim/keys/abbr.vimrc
+source $HOME/.config/nvim/keys/mysnippets.vim

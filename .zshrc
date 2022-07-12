@@ -99,7 +99,6 @@ alias vim='nvim'
 alias v='nvim'
 alias vf='nvim $(fzf)'
 alias cf='cd $(find . -type d -print | fzf)'
-alias vimconfig="nvim ~/.config/nvim/init.vim"
 alias pip3="pip"
 alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
@@ -138,6 +137,10 @@ function vimwiki () {
 function study(){
   cd ~/Documents/Medical/
   nvim index.md
+}
+function vimconfig(){
+  cd ~/.dotfile/.config/nvim/
+  nvim init.vim
 }
 function syncdot(){
   cd ~/.dotfile/

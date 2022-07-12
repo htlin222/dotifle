@@ -64,11 +64,11 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <silent> <Leader>s <Plug>SearchNormal
 vnoremap <silent> <Leader>s <Plug>SearchVisual
 " suspend the neovim
-nnoremap <silent>zz <C-z>
+nnoremap <silent>zo <C-z>
 " open init.vim
 nnoremap <silent><leader>ev :vsplit $MYVIMRC<cr>
 " reload init.vim
-nnoremap <leader><leader>. :w<CR>:silent source $MYVIMRC<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
+nnoremap <silent><leader><leader>. :w<CR>:silent! source $MYVIMRC<CR>:echo "Vimrc reloaded, 🎉 Have a nice day~"<CR>
 " Move lines around
 nnoremap <silent><S-Up> :m-2<CR>
 nnoremap <silent><S-Down> :m+<CR>
@@ -100,8 +100,9 @@ function! CreateFile(tfilename)
     endif
 endfunction
 " Fold
-nnoremap zr zR
-nnoremap zm zM
+nnoremap zr zRzz
+nnoremap zm zMzz
+nnoremap za zazz
 " you can map zo, zc
 " Use > or < to indent or unindent in visual line mode
 vnoremap <S-TAB> <gv
@@ -150,7 +151,8 @@ vnoremap tb :Tabularize /
 nnoremap <silent><LEADER>m :MinimapToggle<CR>
 " === Lazygit
 nnoremap <leader><leader>lz :tabe<CR>:term lazygit<CR>
-
+" === wildfire
+noremap <leader><CR> <Plug>(wildfire-fuel)
 " === Floaterm binding
 " nnoremap <silent> <LEADER>T :FloatermToggle<CR>
 " tnoremap <silent> X <C-\><C-n>:FloatermToggle<CR>
