@@ -19,7 +19,7 @@ source $HOME/.config/nvim/keys/mappings.vim
 source $HOME/.config/nvim/abbr.vimrc
 source $HOME/.config/nvim/mysnippets.vimrc
 "
-" Part.6 ---plugin settings {{{
+" === plugin settings {{{
 " === vim-plug list
 source $HOME/.config/nvim/plug-configs/plug-list.vim
 " === Undotree
@@ -42,66 +42,18 @@ source $HOME/.config/nvim/plug-configs/rnvimr.vim
 source $HOME/.config/nvim/plug-configs/vim-markdown.vim
 " === lightline
 source $HOME/.config/nvim/plug-configs/lightline.vim
+" === vimwiki
+source $HOME/.config/nvim/plug-configs/vimwiki.vim
+" === wilder
+source $HOME/.config/nvim/plug-configs/wilder.vim
+" === plug-configs/easymotion.vim
+source $HOME/.config/nvim/plug-configs/easymotion.vim
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " === Goyo {{{
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
-" }}}
-" vimwiki {{{
-let wiki_1 = {'path': '~/Documents/Medical', 'name': 'Medical',
-                      \ 'syntax': 'markdown', 'ext': '.md'}
-let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
-                      \ 'syntax': 'markdown', 'ext': '.md'}
-let g:vimwiki_list = [wiki_1,wiki_2]
-let g:nv_search_paths = ['~/Documents/Medical/','~/vimwiki']
-let g:vimwiki_markdown_link_ext = 1
-autocmd FileType vimwiki setlocal syntax=markdown
-let g:vimwiki_folding = 'expr'
-let g:vimwiki_auto_header=1
-let g:vimwiki_global_ext=0
-let g:vimwiki_sync_branch = "main"
-let g:vimwiki_sync_commit_message = 'Auto commit + push. %c'
-let g:zettel_default_mappings = 0
-" This is basically the same as the default configuration
-augroup filetype_vimwiki
-    autocmd!
-    autocmd FileType vimwiki inoremap <silent> [[ [[<esc><Plug>ZettelSearchMap
-    autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
-    autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
-    autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
-    autocmd FileType vimwiki nnoremap <leader>wb :ZettelBackLinks<CR>
-    autocmd FileType vimwiki nnoremap <leader>wv <Plug>VimwikiVSplitLink<CR>
-    autocmd FileType vimwiki nnoremap <leader>wnt <Plug>VimwikiTabnewLink<CR>
-    autocmd FileType vimwiki nnoremap <leader>wnz <Plug>ZettelNew<CR>
-    autocmd FileType vimwiki nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
-    autocmd FileType vimwiki nnoremap <silent><leader>wf e:call AppendWithFileName()<CR>p
-    autocmd FileType vimwiki xnoremap <silent><leader>wx :call ReplaceSpace()<CR>
-augroup END
-let g:zettel_format = "%raw_title"
-let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
-let g:zettel_generated_index_title_level = 2
-let g:zettel_backlinks_title = "相關連結："
-let g:zettel_backlinks_title_level = 3
-let g:zettel_generated_tags_title = "Tags"
-let g:zettel_generated_tags_title_level = 3
-let g:zettel_options = [{"template" : "~/.dotfile/.config/nvim/snippets/template.tpl" , "disable_front_matter": 1 }]
-function! ReplaceSpace()
-    exec ':s/\%V\W/_/g'
-endfunction
-function! AppendWithFileName()
-    let @*=expand('_')
-    let @+ .=expand('%:t:r')
-endfunction
-" Sample template: >
-"    = %title =
-"    %backlink
-"    %footer
- " text from the parent note footer. Footer is separated from  the
- " main text by horizontal rule  (----). It can contain some information
- " shared by notes. For example notes about publication can share citation of
- " that publication.
 " }}}
 " newtrw settings: {{{
 let g:netrw_winsize = 20
@@ -118,48 +70,6 @@ let g:better_escape_shortcut = 'jj'
 let g:better_escape_interval = 200
 " enable debug (some message will be shown)
 " let g:better_escape_debug = 1
-" }}}
-" wilder {{{
-" Default keys
-call wilder#setup({
-      \ 'modes': [':', '/', '?'],
-      \ 'next_key': '<Tab>',
-      \ 'previous_key': '<S-Tab>',
-      \ 'accept_key': '<Down>',
-      \ 'reject_key': '<Up>',
-      \ })
-" 'highlighter' : applies highlighting to the candidates
-call wilder#set_option('renderer', wilder#popupmenu_renderer(wilder#popupmenu_border_theme({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'left': [
-      \   ' ', wilder#popupmenu_devicons(),
-      \ ],
-      \ 'right': [
-      \   ' ', wilder#popupmenu_scrollbar(),
-      \ ],
-      \ 'min_width': '20%',
-      \ 'min_height': '10%',
-      \ 'border': 'rounded',
-      \ 'reverse': 1,
-      \ })))
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#python_file_finder_pipeline({
-      \       'file_command': ['rg', '--files'],
-      \       'dir_command': ['find', '.', '-type', 'd', '-printf', '%P\n'],
-      \       'filters': ['fuzzy_filter', 'difflib_sorter'],
-      \     }),
-      \     wilder#cmdline_pipeline({
-      \       'language': 'python',
-      \       'fuzzy': 1,
-      \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': wilder#python_fuzzy_pattern(),
-      \       'sorter': wilder#python_difflib_sorter(),
-      \       'engine': 're',
-      \     }),
-      \   ),
-      \ ])
 " }}}
 " taboo {{{
 let g:taboo_tab_format=" %N:%f %m"
@@ -182,57 +92,41 @@ let g:UltiSnipsListSnippets ="<c-tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " }}}
-" vim-bookmarks {{{
-highlight BookmarkSign ctermbg=235 ctermfg=123
-highlight BookmarkAnnotationSign ctermbg=235 ctermfg=22
-highlight BookmarkLine ctermbg=235 ctermfg=235
-highlight BookmarkAnnotationLine ctermbg=235 ctermfg=235
-let g:bookmark_sign = '🔖'
-let g:bookmark_annotation_sign = '📣'
-let g:bookmark_no_default_key_mappings = 1
-" function {{{
-function! BookmarkMapKeys()
-    nmap mm :BookmarkToggle<CR>
-    nmap mi :BookmarkAnnotate<CR>
-    nmap mn :BookmarkNext<CR>
-    nmap mp :BookmarkPrev<CR>
-    nmap ma :BookmarkShowAll<CR>
-    nmap mc :BookmarkClear<CR>
-    nmap mx :BookmarkClearAll<CR>
-    nmap mkk :BookmarkMoveUp
-    nmap mjj :BookmarkMoveDown
-endfunction
-function! BookmarkUnmapKeys()
-    unmap mm
-    unmap mi
-    unmap mn
-    unmap mp
-    unmap ma
-    unmap mc
-    unmap mx
-    unmap mkk
-    unmap mjj
-endfunction
-autocmd BufEnter * :call BookmarkMapKeys()
-autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
-" }}}
-" }}}
-" easymotion {{{
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-nnoremap f <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nnoremap f <Plug>(easymotion-overwin-f2)
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-" JK motions: Line motions
-nnoremap <Leader>j <Plug>(easymotion-j)
-nnoremap <Leader>k <Plug>(easymotion-k)
-" }}}
+" " vim-bookmarks {{{
+" highlight BookmarkSign ctermbg=235 ctermfg=123
+" highlight BookmarkAnnotationSign ctermbg=235 ctermfg=22
+" highlight BookmarkLine ctermbg=235 ctermfg=235
+" highlight BookmarkAnnotationLine ctermbg=235 ctermfg=235
+" let g:bookmark_sign = '🔖'
+" let g:bookmark_annotation_sign = '📣'
+" let g:bookmark_no_default_key_mappings = 1
+" " function {{{
+" function! BookmarkMapKeys()
+"     nmap mm :BookmarkToggle<CR>
+"     nmap mi :BookmarkAnnotate<CR>
+"     nmap mn :BookmarkNext<CR>
+"     nmap mp :BookmarkPrev<CR>
+"     nmap ma :BookmarkShowAll<CR>
+"     nmap mc :BookmarkClear<CR>
+"     nmap mx :BookmarkClearAll<CR>
+"     nmap mkk :BookmarkMoveUp
+"     nmap mjj :BookmarkMoveDown
+" endfunction
+" function! BookmarkUnmapKeys()
+"     unmap mm
+"     unmap mi
+"     unmap mn
+"     unmap mp
+"     unmap ma
+"     unmap mc
+"     unmap mx
+"     unmap mkk
+"     unmap mjj
+" endfunction
+" autocmd BufEnter * :call BookmarkMapKeys()
+" autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" " }}}
+" " }}}
 " Not in use plug settings
 " source $HOME/.config/nvim/plug-configs/NERDTree-git.vim
 " source $HOME/.config/nvim/plug-configs/syntastic.vim
@@ -423,4 +317,3 @@ noremap <leader><leader>p :call ImgurLink()<CR>
 "
 source $HOME/.config/nvim/general/settings.vim
 source $HOME/.config/nvim/general/colorscheme.vim
-
