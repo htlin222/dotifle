@@ -61,13 +61,14 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 nnoremap <silent><leader>p :Files %:p:h<CR>
 tnoremap <silent><leader>p <Esc>
 nnoremap ,fl :Lines<CR>
-nnoremap ,fb :BLines
+nnoremap ,fb :BLines<cr>
 nnoremap ,ff :Files<CR>
-nnoremap ,fg :GFiles
+nnoremap ,fg :GFiles<cr>
 nnoremap ,f? :GFiles?
 nnoremap ,ft :Tags<cr>
-nnoremap ,fa :Ag
+nnoremap ,fa :Ag<cr>
 nnoremap ,fc :Commits
+nnoremap ,fr :Rg<cr>
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)

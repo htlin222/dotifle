@@ -36,10 +36,10 @@ let g:zettel_generated_tags_title = "Tags"
 let g:zettel_generated_tags_title_level = 3
 let g:zettel_options = [{"template" : "~/.dotfile/.config/nvim/snippets/template.tpl" , "disable_front_matter": 1 }]
 function! ReplaceSpace()
-    exec ':s/\%V\W/_/g'
+    exec ':s/\%V\W/-/g'
 endfunction
 function! AppendWithFileName()
-    let @*=expand('_')
+    let @*=expand('-')
     let @+ .=expand('%:t:r')
 endfunction
 " Sample template: >

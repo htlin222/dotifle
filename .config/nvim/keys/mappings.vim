@@ -37,6 +37,7 @@ inoremap <C-j> <Down>
 inoremap <C-k> <Up>
 inoremap <C-l> <Right>
 inoremap ;v <Esc>viw
+inoremap <C-,> <esc>/<++><Enter>"_c4l
 " delet to the EOL in insertmode
 " inoremap <C-d> <C-O>D
 " jump out of the parenthesis
@@ -163,3 +164,4 @@ noremap <leader><CR> <Plug>(wildfire-fuel)
 " tnoremap <silent> Q <C-\><C-N>:q<CR>
 " === Figlet
 " map fg :r !figlet
+" test
