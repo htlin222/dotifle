@@ -1,4 +1,4 @@
-" __  ____   __  _   ___     _____ __  __ ____   ____
+      " __  ____   __  _   ___     _____ __  __ ____   ____
 "|  \/  \ \ / / | \ | \ \   / /_ _|  \/  |  _ \ / ___|
 "| |\/| |\ V /  |  \| |\ \ / / | || |\/| | |_) | |
 "| |  | | | |   | |\  | \ V /  | || |  | |  _ <| |___
@@ -56,6 +56,8 @@ source $HOME/.config/nvim/plug-configs/easymotion.vim
 source $HOME/.config/nvim/plug-configs/todo.vim
 " === plug-configs/lsp.vim
 source $HOME/.config/nvim/plug-configs/lsp.vim
+" === plug-configs/surround.vim
+source $HOME/.config/nvim/plug-configs/surround.vim
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
