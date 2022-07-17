@@ -7,6 +7,10 @@ Plug 'lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'preservim/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/syntastic'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " completion----
 Plug 'tpope/vim-unimpaired' | Plug 'jiangmiao/auto-pairs'
 Plug 'sirver/ultisnips' | Plug 'honza/vim-snippets'

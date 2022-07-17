@@ -54,6 +54,8 @@ source $HOME/.config/nvim/plug-configs/wilder.vim
 source $HOME/.config/nvim/plug-configs/easymotion.vim
 " === plug-configs/todo.vim
 source $HOME/.config/nvim/plug-configs/todo.vim
+" === plug-configs/lsp.vim
+source $HOME/.config/nvim/plug-configs/lsp.vim
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
