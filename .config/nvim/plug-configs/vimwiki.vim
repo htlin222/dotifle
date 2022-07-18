@@ -15,7 +15,7 @@ let g:zettel_default_mappings = 0
 " This is basically the same as the default configuration
 augroup filetype_vimwiki
     autocmd!
-    autocmd FileType vimwiki inoremap <silent> [[ [[<esc><Plug>ZettelSearchMap
+    autocmd FileType vimwiki inoremap <silent> {{ [[<esc><Plug>ZettelSearchMap
     autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
     autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
     autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
