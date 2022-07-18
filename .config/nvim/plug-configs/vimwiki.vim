@@ -15,7 +15,7 @@ let g:zettel_default_mappings = 0
 " This is basically the same as the default configuration
 augroup filetype_vimwiki
     autocmd!
-    autocmd FileType vimwiki inoremap <silent> {{ [[<esc><Plug>ZettelSearchMap
+    autocmd FileType vimwiki inoremap <silent>\[[ [[<esc><Plug>ZettelSearchMap
     autocmd FileType vimwiki nnoremap T <Plug>ZettelYankNameMap
     autocmd FileType vimwiki xnoremap z <Plug>ZettelNewSelectedMap
     autocmd FileType vimwiki nnoremap gZ <Plug>ZettelReplaceFileWithLink
@@ -26,6 +26,8 @@ augroup filetype_vimwiki
     autocmd FileType vimwiki nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
     autocmd FileType vimwiki nnoremap <silent><leader>wf e:call AppendWithFileName()<CR>p
     autocmd FileType vimwiki xnoremap <silent><leader>wx :call ReplaceSpace()<CR>
+    autocmd FileType vimwiki nnoremap <silent>\8 I*<space><esc>
+    autocmd FileType vimwiki nnoremap <silent>\- I-<space><esc>
 augroup END
 let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
