@@ -28,6 +28,8 @@ augroup filetype_vimwiki
     autocmd FileType vimwiki xnoremap <silent><leader>wx :call ReplaceSpace()<CR>
     autocmd FileType vimwiki nnoremap <silent>\8 I*<space><esc>
     autocmd FileType vimwiki nnoremap <silent>\- I-<space><esc>
+    autocmd FileType vimwiki xnoremap <silent>\8 I*<space><esc>
+    autocmd FileType vimwiki xnoremap <silent>\- I-<space><esc>
 augroup END
 let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "

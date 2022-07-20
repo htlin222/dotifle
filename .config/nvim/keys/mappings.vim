@@ -1,6 +1,8 @@
 " Basic Key Mappings
 " map leader to spacebar
 let mapleader=' '
+nnoremap ; :
+nnoremap : ;
 " is a source for $HOME/.config/nvim/init.vim (press gf to go to the init.vim)
 nnoremap <down> <C-w><C-j>
 nnoremap <up> <C-w><C-k>
