@@ -63,7 +63,8 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for' :['python', 'vim-plug'] }
 " Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins', 'for' :['python', 'vim-plug'] }
 Plug 'tweekmonster/braceless.vim', { 'for' :['python', 'vim-plug'] }
 " others----
-Plug 'vimwiki/vimwiki' | Plug 'michal-h21/vimwiki-sync'
+Plug 'vimwiki/vimwiki'
+Plug 'michal-h21/vimwiki-sync'
 Plug 'michal-h21/vim-zettel'
 Plug 'itchyny/vim-cursorword'
 Plug 'Yggdroot/indentLine' | Plug 'michaeljsmith/vim-indent-object'

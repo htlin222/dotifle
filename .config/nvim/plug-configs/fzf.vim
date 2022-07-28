@@ -60,15 +60,15 @@ let g:fzf_colors =
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 nnoremap <silent><leader>p :Files %:p:h<CR>
 tnoremap <silent><leader>p <Esc>
-nnoremap ,fl :Lines<CR>
-nnoremap ,fb :BLines<cr>
-nnoremap ,ff :Files<CR>
-nnoremap ,fg :GFiles<cr>
-nnoremap ,f? :GFiles?
-nnoremap ,ft :Tags<cr>
-nnoremap ,fa :Ag<cr>
-nnoremap ,fc :Commits
-nnoremap ,fr :Rg<cr>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>fb :BLines<cr>
+nnoremap <leader>ff :Files<CR>
+nnoremap <leader>fg :GFiles<cr>
+nnoremap <leader>f? :GFiles?
+nnoremap <leader>ft :Tags<cr>
+nnoremap <leader>fa :Ag<cr>
+nnoremap <leader>fc :Commits
+nnoremap <leader>fr :Rg<cr>
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)

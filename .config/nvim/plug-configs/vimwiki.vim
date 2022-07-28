@@ -1,11 +1,14 @@
 let wiki_1 = {'path': '~/Documents/Medical', 'name': 'Medical',
+                      \ 'links_space_char': '_',
                       \ 'syntax': 'markdown', 'ext': '.md'}
 let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
-                      \ 'syntax': 'markdown', 'ext': '.md'}
+                      \ 'links_space_char': '_',
+                      \ 'syntax': 'media', 'ext': '.md'}
 let g:vimwiki_list = [wiki_1,wiki_2]
 let g:nv_search_paths = ['~/Documents/Medical/','~/vimwiki']
 let g:vimwiki_markdown_link_ext = 1
 autocmd FileType vimwiki setlocal syntax=markdown
+" let g:vimwiki_syntax_variables.markdown.Link1 = vimwiki#vars#get_global('WikiLinkTemplate1')
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_auto_header=1
 let g:vimwiki_global_ext=0
@@ -33,6 +36,7 @@ augroup filetype_vimwiki
 augroup END
 let g:zettel_format = "%raw_title"
 let g:zettel_fzf_command = "rg --column --line-number --ignore-case --no-heading --color=always "
+let g:zettel_link_format="[[%title]]"
 let g:zettel_generated_index_title_level = 2
 let g:zettel_backlinks_title = "相關連結："
 let g:zettel_backlinks_title_level = 3

@@ -108,6 +108,7 @@ alias abbr='nvim ~/.dotfile/.config/nvim/abbr.vimrc'
 export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export DISPLAY=:0
 
 if type rg &> /dev/null; then
   export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -l -g ""'
@@ -117,6 +118,7 @@ if type rg &> /dev/null; then
   --bind '?:toggle-preview'
 "
 fi
+
 # My persional function {{{
 function lazygit() {
     git add .

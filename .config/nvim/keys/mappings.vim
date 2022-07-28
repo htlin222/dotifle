@@ -155,7 +155,9 @@ nnoremap <silent><LEADER>m :MinimapToggle<CR>
 " === Lazygit
 nnoremap <leader><leader>lz :tabe<CR>:term lazygit<CR>
 " === wildfire
-noremap <leader><CR> <Plug>(wildfire-fuel)
+nnoremap <leader><CR> <Plug>(wildfire-fuel)
+" === startify
+nnoremap <leader>y :vs<CR>:Startify<CR>
 " === Floaterm binding
 " nnoremap <silent> <LEADER>T :FloatermToggle<CR>
 " tnoremap <silent> X <C-\><C-n>:FloatermToggle<CR>
