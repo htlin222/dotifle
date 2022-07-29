@@ -1,5 +1,6 @@
 let wiki_1 = {'path': '~/Documents/Medical', 'name': 'Medical',
-                      \ 'syntax': 'markdown', 'ext': '.md'}
+                      \ 'syntax': 'markdown', 'ext': '.md',
+                      \ 'links_space_char': '_'}
 let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
                       \ 'syntax': 'markdown', 'ext': '.md'}
 let g:vimwiki_list = [wiki_1,wiki_2]
