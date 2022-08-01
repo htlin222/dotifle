@@ -1,6 +1,11 @@
 let wiki_1 = {'path': '~/Documents/Medical', 'name': 'Medical',
+<<<<<<< HEAD
                       \ 'links_space_char': '_',
                       \ 'syntax': 'markdown', 'ext': '.md'}
+=======
+                      \ 'syntax': 'markdown', 'ext': '.md',
+                      \ 'links_space_char': '_'}
+>>>>>>> main
 let wiki_2 = {'path': '~/vimwiki/', 'name': 'Tech',
                       \ 'links_space_char': '_',
                       \ 'syntax': 'media', 'ext': '.md'}
