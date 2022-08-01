@@ -66,9 +66,9 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fg :GFiles<cr>
 nnoremap <leader>f? :GFiles?
 nnoremap <leader>ft :Tags<cr>
-nnoremap <leader>fa :Ag<cr>
+nnoremap <leader>ag :Ag<cr>
 nnoremap <leader>fc :Commits
-nnoremap <leader>fr :Rg<cr>
+nnoremap <leader>rg :Rg<cr>
 " Mapping selecting mappings
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)

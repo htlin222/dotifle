@@ -27,7 +27,7 @@ augroup filetype_vimwiki
     autocmd FileType vimwiki nnoremap <leader>wnt <Plug>VimwikiTabnewLink<CR>
     autocmd FileType vimwiki nnoremap <leader>wnz <Plug>ZettelNew<CR>
     autocmd FileType vimwiki nnoremap <leader>wni <Plug>ZettelInsertNote<CR>
-    autocmd FileType vimwiki nnoremap <silent><leader>wf e:call AppendWithFileName()<CR>p
+    autocmd FileType vimwiki nnoremap <silent><leader>wf :call AppendWithFileName()<CR>p
     autocmd FileType vimwiki xnoremap <silent><leader>wx :call ReplaceSpace()<CR>
     autocmd FileType vimwiki nnoremap <silent>\8 I*<space><esc>
     autocmd FileType vimwiki nnoremap <silent>\- I-<space><esc>
