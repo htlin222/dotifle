@@ -30,7 +30,7 @@ source $HOME/.config/nvim/plug-configs/plug-list.vim
 source $HOME/.config/nvim/plug-configs/UndoTree.vim
 " === COC
 source $HOME/.config/nvim/plug-configs/coc.vim
-" === Startify
+" === startify
 source $HOME/.config/nvim/plug-configs/startify.vim
 " === which-key
 source $HOME/.config/nvim/keys/which-key.vim

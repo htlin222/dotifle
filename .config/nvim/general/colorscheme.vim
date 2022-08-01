@@ -10,8 +10,6 @@ highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=N
 highlight SignColumn guibg=darkgrey
 highlight clear SignColumn
 
-colorscheme monokai
-
 " === Color Options ===
 
 " 235 -- Grey15         --- #262626
@@ -27,6 +25,8 @@ colorscheme monokai
 
 " =====================
 
+colorscheme monokai
+
 " === Pmenu colorscheme ===
 
 " PaperColor Pemenu
@@ -34,8 +34,8 @@ colorscheme monokai
 " hi PmenuSel guifg=#262626 guibg=#ffff5f gui=bold
 
 " DarkSpace Pmenu
-hi Pmenu guifg=#949494 guibg=#262626 gui=bold
-hi PmenuSel guifg=#262626 guibg=#875faf gui=bold
+hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#64666d gui=NONE
+hi! PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#204a87 gui=NONE
 
 " === Minimap colorscheme ===
 let g:minimap_highlight = 'MinimapCurrentLine'

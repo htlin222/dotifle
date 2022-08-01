@@ -32,8 +32,7 @@ function! StartifyEntryFormat()
 let g:startify_bookmarks = [
             \ { 'i': '~/.config/nvim/init.vim' },
             \ { 'z': '~/.zshrc' },
-            \ '~/worksppace',
-            \ '~/',
+            \ { 's': '~/Documents/Medical/index.md' }
             \ ]
 
 let g:startify_enable_special = 0
