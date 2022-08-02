@@ -22,6 +22,7 @@ rm -rf ~/.config
 ln -s ~/.dotfile/.config ~/.config
 rm .zshrc
 ln -s ~/.dotfile/.zshrc ~/.zshrc
+ln -s ~/.dotfile/pyscripts ~/pyscripts
 # add the file you need
 ```
 ## Install the necessary package from homebrew
@@ -36,30 +37,30 @@ brew install --cask stats
 ```
 ## set up for oh-my-zsh
 ```shell
-
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 ## install node and python 
 > since my previous machine's node and python was download via GUI
 ### option1: install via GUI
 [下載 | Node.js](https://nodejs.org/zh-tw/download/)
-[Anaconda | Anaconda Distribution](https://www.anaconda.com/products/distribution)
 ### option2: install via brew
-> not recommended since my vimrc's path was different
-```shell
+```
 brew install node
-brew install python
+```
+> not recommended since my vimrc's path was different
+### Python setup 
+```shell
 pyenv install 3.x.x # the latest version
-pyenv virtualenv 3.7.1 neovim3
-pyenv activate neovim3
-pip install neovim
-pyenv which python     # 記下 python3 的 path
-# in vim vimrc, let g:python3_host_prog = '/Users/username/.pyenv/versions/neovim3/bin/python'
 ```
 ## vim
 ### install the package 
 ```shell 
-pip3 install neovim
-pip3 install --upgrade pynvim
+pyenv virtualenv 3.x.x neovim3
+pyenv activate neovim3
+pip install neovim
+pyenv which python     # 記下 python3 的 path
+# in vim vimrc, let g:python3_host_prog = '$HOME/.pyenv/versions/neovim3/bin/python'
 npm install --global yarn
 brew install code-minimap
 ```
@@ -91,4 +92,10 @@ defaults write com.apple.dock expose-animation-duration -float 0.1
 * [Mage Software > Display Rotation Menu](http://www.magesw.com/displayrotation/)
 * [Magnet – Window manager for Mac](https://magnet.crowdcafe.com/)
 * [Keyboard Maestro 10.1.1: Work Faster with Macros for macOS](https://www.keyboardmaestro.com/main/)
+	```
+	pyenv virtualenv 3.x.x keyboardmaestro
+	# install the pip you need
+	pyenv deactivate all
+	# in app, in the first line add $HOME/.pyenv/versions/keyboardmaestro/bin/python
+	```
 * [Noodlesoft – Noodlesoft – Simply Useful Software](https://www.noodlesoft.com/)
