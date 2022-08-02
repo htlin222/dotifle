@@ -21,6 +21,7 @@ if empty(glob('~/.config/nvim/machine_specific.vim'))
   let has_machine_specific_file = 0
   silent! exec "!cp ~/.config/nvim/default_configs/machine_specific_default.vim ~/.config/nvim/machine_specific.vim"
 endif
+source $HOME/.config/nvim/machine_specific.vim
 " }}}
 "
 " PLUGIN SETTINGS {{{
