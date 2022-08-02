@@ -48,6 +48,12 @@ brew install --cask stats
 ```shell
 brew install node
 brew install python
+pyenv install 3.x.x # the latest version
+pyenv virtualenv 3.7.1 neovim3
+pyenv activate neovim3
+pip install neovim
+pyenv which python     # 記下 python3 的 path
+# in vim vimrc, let g:python3_host_prog = '/Users/username/.pyenv/versions/neovim3/bin/python'
 ```
 ## vim
 ### install the package 
