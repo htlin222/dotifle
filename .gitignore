@@ -1,2 +1,4 @@
 .config/nvim/plugged/
 .config/coc/extensions/
+
+.DS_Store

@@ -8,23 +8,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-# Anaconda3 setting {{{
-# export PATH="Users/mac/opt/anaconda3/bin:$PATH"  # commented out by conda initialize
-export PATH=$PATH:/Users/mac/opt/anaconda3/lib/python3.9:PATH
-# !! Contents within this block are managed by 'conda init' !!
-# <<< conda initialize <<<
-__conda_setup="$('/Users/$HOME/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-# . "/Users/mac/opt/anaconda3/etc/profile.d/conda.sh"  # commented out by conda initialize
-    else
-# export PATH="/Users/mac/opt/anaconda3/bin:$PATH"  # commented out by conda initialize
-    fi
-fi
-unset __conda_setup
-# }}}
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -101,7 +84,7 @@ alias vim='nvim'
 alias v='nvim'
 alias vf='nvim $(fzf)'
 alias cf='cd $(find . -type d -print | fzf)'
-alias pip3="pip"
+alias pip="pip3"
 alias reload="source ~/.zshrc"
 alias note='vim ~/vimwiki/index.md'
 alias vimdiff='nvim -d'
@@ -111,6 +94,11 @@ export EDITOR="/usr/local/bin/nvim"
 export VISUAL="/usr/local/bin/nvim"
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export DISPLAY=:0
+export PATH="/usr/bin/python3:$PATH"
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 if type rg &> /dev/null; then
   export FZF_DEFAULT_COMMAND='rg --hidden --ignore .git -l -g ""'
@@ -165,16 +153,16 @@ function mkcd() {
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/$HOME/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/$HOME/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/Users/$HOME/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/$HOME/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/$HOME/opt/anaconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/$HOME/opt/anaconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 

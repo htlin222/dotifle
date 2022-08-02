@@ -9,7 +9,7 @@ t = time.strftime("%y-%m-%d_%H_%M_%S", t)
 # set your client I
 CLIENT_ID = "713cacc415ed391"
 title = "Uploaded with PyImgur"
-image_path = "/Users/mac/Pictures"
+image_path = "~/Pictures"
 # if not(os.path.exists(image_path)):
 #    os.mkdir(image_path)
 image_path = f"{image_path}/image-{t}.png"
